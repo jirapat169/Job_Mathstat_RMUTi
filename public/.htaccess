@@ -1,0 +1,18 @@
+AddDefaultCharset UTF-8
+
+<FilesMatch ".(htm|html|css|js)$">
+    AddDefaultCharset UTF-8
+</FilesMatch>
+
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteBase /
+    RewriteRule ^index\.html$ - [L]
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteRule . index.html [L]
+</IfModule>
+
+#php_value upload_max_filesize 30M
+#php_value post_max_size 40M
+#php_value memory_limit 40M
