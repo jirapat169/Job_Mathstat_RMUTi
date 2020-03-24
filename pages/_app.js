@@ -14,9 +14,6 @@ const settings = { timestampsInSnapshots: true };
 class MyApp extends App {
   constructor(props) {
     super(props);
-    this.state = {
-      news: {}
-    };
   }
 
   componentDidMount() {}
@@ -41,13 +38,9 @@ class MyApp extends App {
       messagingSenderId: "718102188961",
       appId: "1:718102188961:web:9f9d7084e872ad3da6b1e0"
     };
+
     if (!firebase.apps.length) {
       firebase.initializeApp(config);
-
-      const news = firebase.database().ref("/news");
-      news.on("value", value => {
-        this.setState({ news: value });
-      });
     }
 
     return (
@@ -55,8 +48,7 @@ class MyApp extends App {
         <Component
           {...pageProps}
           {...this.props}
-          firebase={firebase}
-          news={this.state.news}
+          db={firebase.database().ref("/news")}
         />
         <script src={`${basePath()}assets/js/all.js`} defer></script>
         <script

@@ -74,6 +74,10 @@ class Index extends Component {
 
   componentDidMount() {
     this.tabChange(0);
+    // console.log(this.props);
+    this.props.db.on("value", value => {
+      console.log(value.val());
+    });
   }
 
   tabChange = data => {
