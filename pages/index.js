@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { mapStateToProps } from "../app/redux";
 import Link from "next/link";
 import { HtmlHead } from "../app/components/html-head";
-import DefaultLayout from "../app/components/dafault-layout";
+import DefaultLayout from "../app/components/default-layout";
 
 const basePath = require("./../base_path");
 

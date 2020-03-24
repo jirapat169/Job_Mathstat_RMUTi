@@ -1,13 +1,15 @@
 import Head from "next/head";
-const basePath = require("../../base_path");
+const basePath = require("../../../base_path");
 
-const HtmlHead = ({
-  title = "สาขาวิชาคณิตศาสตร์และสถิติประยุกต์ มหาวิทยาลัยเทคโนโลยีราชมงคลอีสาน นครราชสีมา"
-}) => {
+const HtmlHead = ({ prefixTitle = "" }) => {
+  var title =
+    "สาขาวิชาคณิตศาสตร์และสถิติประยุกต์ มหาวิทยาลัยเทคโนโลยีราชมงคลอีสาน นครราชสีมา";
   return (
     <Head>
       <meta charSet="utf-8" />
-      <title>{`${title}`}</title>
+      <title>{`${
+        prefixTitle.length > 0 ? prefixTitle + " - " : ""
+      }${title}`}</title>
       <meta
         name="google-site-verification"
         content="335efhmKom1PcdZJeu94nUwhwm2j2LOxI2fbD7uNXaA"
@@ -35,7 +37,10 @@ const HtmlHead = ({
       {/* Facebook */}
       <meta property="og:url" content="http://mathstat.rmuti.ac.th/" />
       <meta property="og:type" content="website" />
-      <meta property="og:title" content={`${title}`} />
+      <meta
+        property="og:title"
+        content={`${prefixTitle.length > 0 ? prefixTitle + " - " : ""}${title}`}
+      />
       <meta
         property="og:description"
         content="สาขาวิชาคณิตศาสตร์และสถิติประยุกต์ คณะวิทยาศาสตร์และศิลปศาสตร์ มหาวิทยาลัยเทคโนโลยีราชมงคลอีสาน | Department of Applied Mathematics and Statistics - เกี่ยวกับสาขา ข่าวประชาสัมพันธ์ ข่าวสารและกิจกรรม งานวิจัย งานวิชาการ บทความทั่วไป"
@@ -46,7 +51,10 @@ const HtmlHead = ({
       />
       {/* Twitter */}
       <meta name="twitter:card" content="summary" />
-      <meta name="twitter:title" content={`${title}`} />
+      <meta
+        name="twitter:title"
+        content={`${prefixTitle.length > 0 ? prefixTitle + " - " : ""}${title}`}
+      />
       <meta
         name="twitter:image"
         content="http://mathstat.rmuti.ac.th/assets/img/RMUTi_ICON.png"
