@@ -372,12 +372,12 @@ class DefaultLayout extends Component {
     document.getElementById(
       "bodyContent"
     ).style.paddingBottom = `${document.getElementById("footerContent")
-      .offsetHeight + 50}px`;
+      .offsetHeight + 30}px`;
     window.addEventListener("resize", () => {
       document.getElementById(
         "bodyContent"
       ).style.paddingBottom = `${document.getElementById("footerContent")
-        .offsetHeight + 50}px`;
+        .offsetHeight + 30}px`;
     });
   }
 

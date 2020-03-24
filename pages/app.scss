@@ -1,0 +1,25 @@
+.tabsContent {
+  width: 100%;
+  min-width: 800px;
+  border-bottom: 1px solid #e0e0e0;
+
+  .tabList {
+    display: inline-flex;
+    width: 20%;
+    min-width: fit-content;
+    justify-content: center;
+    align-items: center;
+    height: 65px;
+    cursor: pointer;
+
+    .tabContent {
+      text-align: center;
+    }
+  }
+}
+
+.tabList-active {
+  color: #007bff;
+  font-weight: bold;
+  border-bottom: 3px solid #007bff;
+}
