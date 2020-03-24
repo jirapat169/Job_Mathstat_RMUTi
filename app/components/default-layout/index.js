@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import "./style.scss";
 import { connect } from "react-redux";
 import { mapStateToProps } from "../../redux";
+import Link from "next/link";
 
 const basePath = require("../../../base_path");
 
@@ -202,9 +203,9 @@ const BodyContent = ({ children }) => {
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
           <ul className="navbar-nav mr-auto">
             <li className="nav-item">
-              <a className="nav-link" href="">
-                หน้าหลัก
-              </a>
+              <Link href="/" as={`${basePath()}`}>
+                <a className="nav-link">หน้าหลัก</a>
+              </Link>
             </li>
 
             <li className="nav-item dropdown">
@@ -220,8 +221,12 @@ const BodyContent = ({ children }) => {
                 เกี่ยวกับสาขา
               </a>
               <div className="dropdown-menu" aria-labelledby="aboutDropdown">
-                <a className="dropdown-item">ประวัติสาขาวิชา</a>
-                <a className="dropdown-item">คณาจารย์และเจ้าหน้าที่</a>
+                <Link href="/history" as={`${basePath()}history`}>
+                  <a className="dropdown-item">ประวัติสาขาวิชา</a>
+                </Link>
+                <Link href="/personal" as={`${basePath()}personal`}>
+                  <a className="dropdown-item">คณาจารย์และเจ้าหน้าที่</a>
+                </Link>
               </div>
             </li>
 

@@ -2,16 +2,16 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>http://mathstat.rmuti.ac.th/</loc>
-    <lastmod>2020-03-19</lastmod>
+    <lastmod>2020-03-25</lastmod>
   </url>
 
   <url>
-    <loc>http://mathstat.rmuti.ac.th/about/history</loc>
-    <lastmod>2020-03-19</lastmod>
+    <loc>http://mathstat.rmuti.ac.th/history</loc>
+    <lastmod>2020-03-25</lastmod>
   </url>
 
   <url>
-    <loc>http://mathstat.rmuti.ac.th/contact</loc>
-    <lastmod>2020-03-19</lastmod>
+    <loc>http://mathstat.rmuti.ac.th/personal</loc>
+    <lastmod>2020-03-25</lastmod>
   </url>
 </urlset>

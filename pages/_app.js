@@ -4,19 +4,43 @@ import React from "react";
 import { store } from "../app/redux";
 import withRedux from "next-redux-wrapper";
 import firebase from "firebase/app";
+import LinearProgress from "@material-ui/core/LinearProgress";
 import "firebase/database";
-
 import "../app/style.scss";
+import { Router } from "next/dist/client/router";
 
 const basePath = require("./../base_path");
-const settings = { timestampsInSnapshots: true };
 
 class MyApp extends App {
   constructor(props) {
     super(props);
+    this.state = {
+      pageLoad: true,
+      pageDelay: 500
+    };
   }
 
-  componentDidMount() {}
+  componentDidMount() {
+    setTimeout(() => {
+      this.setState({ pageLoad: false });
+    }, this.state.pageDelay);
+
+    Router.events.on("routeChangeStart", () => {
+      this.setState({ pageLoad: true });
+    });
+
+    Router.events.on("routeChangeComplete", () => {
+      setTimeout(() => {
+        this.setState({ pageLoad: false });
+      }, this.state.pageDelay);
+    });
+
+    Router.events.on("routeChangeError", () => {
+      setTimeout(() => {
+        this.setState({ pageLoad: false });
+      }, this.state.pageDelay);
+    });
+  }
 
   static async getInitialProps({ Component, ctx }) {
     const pageProps = Component.getInitialProps
@@ -45,6 +69,17 @@ class MyApp extends App {
 
     return (
       <Provider store={store}>
+        <div
+          style={{
+            position: "absolute",
+            width: "100%",
+            zIndex: "9999",
+            display: `${this.state.pageLoad ? "block" : "none"}`
+          }}
+        >
+          <LinearProgress />
+        </div>
+
         <Component
           {...pageProps}
           {...this.props}

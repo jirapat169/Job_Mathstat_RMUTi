@@ -102,19 +102,19 @@ class Index extends Component {
           </div>
           <TabsList tabChange={this.tabChange} value={this.state.tabIndex} />
           <TabsContent value={0}>
-            <p>asdsa1</p>
+            <p>ข่าวทั้งหมด</p>
           </TabsContent>
           <TabsContent value={1}>
-            <p>asdsa2</p>
+            <p>ข่าวประชาสัมพันธ์</p>
           </TabsContent>
           <TabsContent value={2}>
-            <p>asdsa3</p>
+            <p>ข่าวกิจกรรม</p>
           </TabsContent>
           <TabsContent value={3}>
-            <p>asds4</p>
+            <p>ข่าวบริการวิชาการ</p>
           </TabsContent>
           <TabsContent value={4}>
-            <p>asdsa5</p>
+            <p>ข่าวการรับสมัคร</p>
           </TabsContent>
         </DefaultLayout>
       </>

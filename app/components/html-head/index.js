@@ -1,7 +1,7 @@
 import Head from "next/head";
 const basePath = require("../../../base_path");
 
-const HtmlHead = ({ prefixTitle = "" }) => {
+const HtmlHead = ({ prefixTitle = "", afterPath = "" }) => {
   var title =
     "สาขาวิชาคณิตศาสตร์และสถิติประยุกต์ มหาวิทยาลัยเทคโนโลยีราชมงคลอีสาน นครราชสีมา";
   return (
@@ -16,10 +16,10 @@ const HtmlHead = ({ prefixTitle = "" }) => {
       />
       <link
         rel="alternate"
-        href="http://mathstat.rmuti.ac.th/"
+        href={`${basePath()}${afterPath}`}
         hrefLang="x-default"
       />
-      <link rel="canonical" href="http://mathstat.rmuti.ac.th/" />
+      <link rel="canonical" href={`${basePath()}${afterPath}`} />
       <meta name="viewport" content="width=device-width, initial-scale=1" />
       <meta name="robots" content="index, follow" />
       <meta
@@ -35,7 +35,7 @@ const HtmlHead = ({ prefixTitle = "" }) => {
         content="สาขาวิชาคณิตศาสตร์และสถิติประยุกต์, คณะวิทยาศาสตร์และศิลปศาสตร์, มหาวิทยาลัยเทคโนโลยีราชมงคลอีสาน, Department of Applied Mathematics and Statistics, Faculty of Sciences and Liberal Arts, Rajamangala University of Technology Isan, Thailand, rmuti, mathematics, sciences, คณิตศาสตร์, สถิติประยุกต์, มทร, มทร.อีสาน, เทคโนโคราช, เทคโน"
       />
       {/* Facebook */}
-      <meta property="og:url" content="http://mathstat.rmuti.ac.th/" />
+      <meta property="og:url" content={`${basePath()}${afterPath}`} />
       <meta property="og:type" content="website" />
       <meta
         property="og:title"
