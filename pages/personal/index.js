@@ -8,7 +8,7 @@ class Personal extends Component {
   render() {
     return (
       <>
-        <HtmlHead prefixTitle="คณาจารย์และเจ้าหน้าที่" afterPath="personal" />
+        <HtmlHead prefixTitle="คณาจารย์และเจ้าหน้าที่" path="personal" />
         <DefaultLayout>
           <span>Personal</span>
         </DefaultLayout>

@@ -5,7 +5,7 @@ import Link from "next/link";
 import { HtmlHead } from "../app/components/html-head";
 import DefaultLayout from "../app/components/default-layout";
 
-import "./app.scss";
+import "./index.scss";
 
 const basePath = require("./../base_path");
 

@@ -1,7 +1,11 @@
 import Head from "next/head";
 const basePath = require("../../../base_path");
 
-const HtmlHead = ({ prefixTitle = "", afterPath = "" }) => {
+const HtmlHead = ({
+  prefixTitle = "",
+  path = "",
+  img = `${basePath()}assets/img/RMUTi_ICON.png`
+}) => {
   var title =
     "สาขาวิชาคณิตศาสตร์และสถิติประยุกต์ มหาวิทยาลัยเทคโนโลยีราชมงคลอีสาน นครราชสีมา";
   return (
@@ -16,10 +20,10 @@ const HtmlHead = ({ prefixTitle = "", afterPath = "" }) => {
       />
       <link
         rel="alternate"
-        href={`${basePath()}${afterPath}`}
+        href={`${basePath()}${path}`}
         hrefLang="x-default"
       />
-      <link rel="canonical" href={`${basePath()}${afterPath}`} />
+      <link rel="canonical" href={`${basePath()}${path}`} />
       <meta name="viewport" content="width=device-width, initial-scale=1" />
       <meta name="robots" content="index, follow" />
       <meta
@@ -35,7 +39,7 @@ const HtmlHead = ({ prefixTitle = "", afterPath = "" }) => {
         content="สาขาวิชาคณิตศาสตร์และสถิติประยุกต์, คณะวิทยาศาสตร์และศิลปศาสตร์, มหาวิทยาลัยเทคโนโลยีราชมงคลอีสาน, Department of Applied Mathematics and Statistics, Faculty of Sciences and Liberal Arts, Rajamangala University of Technology Isan, Thailand, rmuti, mathematics, sciences, คณิตศาสตร์, สถิติประยุกต์, มทร, มทร.อีสาน, เทคโนโคราช, เทคโน"
       />
       {/* Facebook */}
-      <meta property="og:url" content={`${basePath()}${afterPath}`} />
+      <meta property="og:url" content={`${basePath()}${path}`} />
       <meta property="og:type" content="website" />
       <meta
         property="og:title"
@@ -45,20 +49,14 @@ const HtmlHead = ({ prefixTitle = "", afterPath = "" }) => {
         property="og:description"
         content="สาขาวิชาคณิตศาสตร์และสถิติประยุกต์ คณะวิทยาศาสตร์และศิลปศาสตร์ มหาวิทยาลัยเทคโนโลยีราชมงคลอีสาน | Department of Applied Mathematics and Statistics - เกี่ยวกับสาขา ข่าวประชาสัมพันธ์ ข่าวสารและกิจกรรม งานวิจัย งานวิชาการ บทความทั่วไป"
       />
-      <meta
-        property="og:image"
-        content="http://mathstat.rmuti.ac.th/assets/img/RMUTi_ICON.png"
-      />
+      <meta property="og:image" content={img} />
       {/* Twitter */}
       <meta name="twitter:card" content="summary" />
       <meta
         name="twitter:title"
         content={`${prefixTitle.length > 0 ? prefixTitle + " - " : ""}${title}`}
       />
-      <meta
-        name="twitter:image"
-        content="http://mathstat.rmuti.ac.th/assets/img/RMUTi_ICON.png"
-      />
+      <meta name="twitter:image" content={img} />
       <meta
         name="twitter:description"
         content="สาขาวิชาคณิตศาสตร์และสถิติประยุกต์ คณะวิทยาศาสตร์และศิลปศาสตร์ มหาวิทยาลัยเทคโนโลยีราชมงคลอีสาน | Department of Applied Mathematics and Statistics - เกี่ยวกับสาขา ข่าวประชาสัมพันธ์ ข่าวสารและกิจกรรม งานวิจัย งานวิชาการ บทความทั่วไป"

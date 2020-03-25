@@ -16,10 +16,15 @@
       text-align: center;
     }
   }
+
+  .tabList:hover {
+    background-color: rgba(0, 0, 0, 0.15);
+  }
 }
 
 .tabList-active {
   color: #007bff;
   font-weight: bold;
   border-bottom: 3px solid #007bff;
+  background-color: rgba(0, 0, 0, 0.07);
 }
