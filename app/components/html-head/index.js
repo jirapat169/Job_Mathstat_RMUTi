@@ -32,7 +32,9 @@ const HtmlHead = ({
       />
       <meta
         name="description"
-        content="สาขาวิชาคณิตศาสตร์และสถิติประยุกต์ คณะวิทยาศาสตร์และศิลปศาสตร์ มหาวิทยาลัยเทคโนโลยีราชมงคลอีสาน | Department of Applied Mathematics and Statistics - เกี่ยวกับสาขา ข่าวประชาสัมพันธ์ ข่าวสารและกิจกรรม งานวิจัย งานวิชาการ บทความทั่วไป"
+        content={`${
+          prefixTitle.length > 0 ? prefixTitle + " - " : ""
+        }${title}, Department of Applied Mathematics and Statistics, Rajamangala University of Technology Isan, Thailand`}
       />
       <meta
         name="keywords"
@@ -47,7 +49,9 @@ const HtmlHead = ({
       />
       <meta
         property="og:description"
-        content="สาขาวิชาคณิตศาสตร์และสถิติประยุกต์ คณะวิทยาศาสตร์และศิลปศาสตร์ มหาวิทยาลัยเทคโนโลยีราชมงคลอีสาน | Department of Applied Mathematics and Statistics - เกี่ยวกับสาขา ข่าวประชาสัมพันธ์ ข่าวสารและกิจกรรม งานวิจัย งานวิชาการ บทความทั่วไป"
+        content={`${
+          prefixTitle.length > 0 ? prefixTitle + " - " : ""
+        }${title}, Department of Applied Mathematics and Statistics, Rajamangala University of Technology Isan, Thailand`}
       />
       <meta property="og:image" content={img} />
       {/* Twitter */}
@@ -59,7 +63,9 @@ const HtmlHead = ({
       <meta name="twitter:image" content={img} />
       <meta
         name="twitter:description"
-        content="สาขาวิชาคณิตศาสตร์และสถิติประยุกต์ คณะวิทยาศาสตร์และศิลปศาสตร์ มหาวิทยาลัยเทคโนโลยีราชมงคลอีสาน | Department of Applied Mathematics and Statistics - เกี่ยวกับสาขา ข่าวประชาสัมพันธ์ ข่าวสารและกิจกรรม งานวิจัย งานวิชาการ บทความทั่วไป"
+        content={`${
+          prefixTitle.length > 0 ? prefixTitle + " - " : ""
+        }${title}, Department of Applied Mathematics and Statistics, Rajamangala University of Technology Isan, Thailand`}
       />
       {/* CSS */}
 
@@ -67,19 +73,6 @@ const HtmlHead = ({
         rel="icon"
         type="image/png"
         href={`${basePath()}assets/img/RMUTi_ICON.png`}
-      />
-      <link
-        rel="stylesheet"
-        href={`${basePath()}assets/css/Material_Icon/material-icons.css`}
-      />
-      <link rel="stylesheet" href={`${basePath()}assets/css/notfound.css`} />
-      <link
-        rel="stylesheet"
-        href={`${basePath()}assets/css/bootstrap.min.css`}
-      />
-      <link
-        rel="stylesheet"
-        href={`${basePath()}assets/css/Font_Promp/promp.css`}
       />
     </Head>
   );
