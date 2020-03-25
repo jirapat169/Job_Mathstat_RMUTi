@@ -74,6 +74,20 @@ const HtmlHead = ({
         type="image/png"
         href={`${basePath()}assets/img/RMUTi_ICON.png`}
       />
+
+      <link
+        rel="stylesheet"
+        href={`${basePath()}assets/css/Material_Icon/material-icons.css`}
+      />
+      <link rel="stylesheet" href={`${basePath()}assets/css/notfound.css`} />
+      <link
+        rel="stylesheet"
+        href={`${basePath()}assets/css/bootstrap.min.css`}
+      />
+      <link
+        rel="stylesheet"
+        href={`${basePath()}assets/css/Font_Promp/promp.css`}
+      />
     </Head>
   );
 };

@@ -9,6 +9,8 @@ import "firebase/database";
 import "../app/style.scss";
 import { Router } from "next/dist/client/router";
 
+const basePath = require("./../base_path");
+
 class MyApp extends App {
   constructor(props) {
     super(props);
@@ -82,6 +84,13 @@ class MyApp extends App {
           {...this.props}
           db={firebase.database().ref("/news")}
         />
+        <script src={`${basePath()}assets/js/all.js`} defer></script>
+        <script
+          src={`${basePath()}assets/js/jquery-3.4.1.slim.min.js`}
+        ></script>
+        <script src={`${basePath()}assets/js/bootstrap.bundle.min.js`}></script>
+        <script src={`${basePath()}assets/js/secure-ls.min.js`}></script>
+        <script src={`${basePath()}assets/js/underscore-min.js`}></script>
       </Provider>
     );
   }
