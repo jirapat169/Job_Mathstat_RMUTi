@@ -1,7 +1,4 @@
 import React, { Component } from "react";
-import { connect } from "react-redux";
-import { mapStateToProps } from "../app/redux";
-import Link from "next/link";
 import { HtmlHead } from "../app/components/html-head";
 import DefaultLayout from "../app/components/default-layout";
 
@@ -64,7 +61,7 @@ const TabsContent = ({ value, children }) => {
   );
 };
 
-class Index extends Component {
+export default class Index extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -75,9 +72,6 @@ class Index extends Component {
   componentDidMount() {
     this.tabChange(0);
     // console.log(this.props);
-    this.props.db.on("value", value => {
-      console.log(value.val());
-    });
   }
 
   tabChange = data => {
@@ -121,5 +115,3 @@ class Index extends Component {
     );
   }
 }
-
-export default connect(mapStateToProps)(Index);

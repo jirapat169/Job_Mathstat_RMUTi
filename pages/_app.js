@@ -7,16 +7,27 @@ import firebase from "firebase/app";
 import LinearProgress from "@material-ui/core/LinearProgress";
 import "firebase/database";
 import "../app/style.scss";
-import { Router } from "next/dist/client/router";
+import { Router } from "next/router";
+import AppRedux from "../app/redux/app-redux";
 
 const basePath = require("./../base_path");
+const configFirebase = {
+  apiKey: "AIzaSyCONB0piLBtDWrd0X6EQM3X4j5GfhUD5Vc",
+  authDomain: "myapp-c233c.firebaseapp.com",
+  databaseURL: "https://myapp-c233c.firebaseio.com",
+  projectId: "myapp-c233c",
+  storageBucket: "myapp-c233c.appspot.com",
+  messagingSenderId: "718102188961",
+  appId: "1:718102188961:web:9f9d7084e872ad3da6b1e0"
+};
 
 class MyApp extends App {
   constructor(props) {
     super(props);
     this.state = {
       pageLoad: true,
-      pageDelay: 500
+      pageDelay: 500,
+      db: null
     };
   }
 
@@ -40,6 +51,15 @@ class MyApp extends App {
         this.setState({ pageLoad: false });
       }, this.state.pageDelay);
     });
+
+    if (!firebase.apps.length) {
+      firebase.initializeApp(configFirebase);
+      this.setState({
+        db: (path = "") => {
+          return firebase.database().ref(`/news${path}`);
+        }
+      });
+    }
   }
 
   static async getInitialProps({ Component, ctx }) {
@@ -53,19 +73,6 @@ class MyApp extends App {
 
   render() {
     const { Component, pageProps } = this.props;
-    const config = {
-      apiKey: "AIzaSyCONB0piLBtDWrd0X6EQM3X4j5GfhUD5Vc",
-      authDomain: "myapp-c233c.firebaseapp.com",
-      databaseURL: "https://myapp-c233c.firebaseio.com",
-      projectId: "myapp-c233c",
-      storageBucket: "myapp-c233c.appspot.com",
-      messagingSenderId: "718102188961",
-      appId: "1:718102188961:web:9f9d7084e872ad3da6b1e0"
-    };
-
-    if (!firebase.apps.length) {
-      firebase.initializeApp(config);
-    }
 
     return (
       <Provider store={store}>
@@ -79,11 +86,11 @@ class MyApp extends App {
         >
           <LinearProgress />
         </div>
-        <Component
-          {...pageProps}
-          {...this.props}
-          db={firebase.database().ref("/news")}
-        />
+
+        <AppRedux {...pageProps} {...this.props} db={this.state.db}>
+          <Component />
+        </AppRedux>
+
         <script src={`${basePath()}assets/js/all.js`} defer></script>
         <script
           src={`${basePath()}assets/js/jquery-3.4.1.slim.min.js`}
