@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { mapStateToProps } from ".";
 
+const basePath = require("./../../base_path");
+
 class AppRedux extends React.PureComponent {
   constructor(props) {
     super(props);
@@ -12,7 +14,7 @@ class AppRedux extends React.PureComponent {
     delete propsCopy["children"];
 
     const childrenWithProps = React.Children.map(this.props.children, child =>
-      React.cloneElement(child, { ...propsCopy })
+      React.cloneElement(child, { ...propsCopy, basePath: basePath() })
     );
 
     return <>{childrenWithProps}</>;

@@ -1,7 +1,7 @@
 class AppService {
   constructor() {}
 
-  localStorage = () => {
+  localStorage() {
     const prefixKey = "mathstat_";
     const _localStorage = new window.SecureLS({
       encodingType: "des",
@@ -24,7 +24,7 @@ class AppService {
         window.localStorage.clear();
       }
     };
-  };
+  }
 }
 
 export default new AppService();
