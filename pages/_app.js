@@ -56,7 +56,7 @@ class MyApp extends App {
       firebase.initializeApp(configFirebase);
       this.setState({
         db: (path = "") => {
-          return firebase.database().ref(`/news${path}`);
+          return firebase.database().ref(`/mathstat${path}`);
         }
       });
     }
