@@ -5,7 +5,10 @@ import DefaultLayout from "../../app/components/default-layout";
 export default class Personal extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
+  }
+
+  componentDidMount() {
+    console.log(this.props);
   }
 
   render() {

@@ -34,7 +34,7 @@ export default class Index extends Component {
                 <>
                   <HtmlHead prefixTitle="ผู้ดูแลระบบ" path="admin" />
                   <div className="row">
-                    <div className="col-lg-3">
+                    <div className="col-lg-3 mb-3">
                       <div
                         className="nav flex-column nav-pills"
                         id="v-pills-tab"
@@ -72,7 +72,7 @@ export default class Index extends Component {
                       </div>
                     </div>
 
-                    <div className="col-lg-auto">
+                    <div className="col-lg-9 mb-3">
                       <div className="tab-content" id="v-pills-tabContent">
                         <div
                           className="tab-pane fade show active"

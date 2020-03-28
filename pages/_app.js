@@ -21,6 +21,14 @@ const configFirebase = {
   appId: "1:718102188961:web:9f9d7084e872ad3da6b1e0"
 };
 
+const delay = ms => {
+  return new Promise(resolve => {
+    setTimeout(() => {
+      resolve();
+    }, ms);
+  });
+};
+
 class MyApp extends App {
   constructor(props) {
     super(props);
@@ -87,7 +95,12 @@ class MyApp extends App {
           <LinearProgress />
         </div>
 
-        <AppRedux {...pageProps} {...this.props} db={this.state.db}>
+        <AppRedux
+          {...pageProps}
+          {...this.props}
+          db={this.state.db}
+          delay={delay}
+        >
           <Component />
         </AppRedux>
 
