@@ -7,6 +7,9 @@ import { useForm, Controller } from "react-hook-form";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import Compressor from "compressorjs";
+import Select from "@material-ui/core/Select";
+import FormControl from "@material-ui/core/FormControl";
+import InputLabel from "@material-ui/core/InputLabel";
 
 const style = {
   border: "1px dashed gray",
@@ -50,7 +53,7 @@ const Container = ({ items, setItems }) => {
               <Card
                 index={i}
                 id={item.key}
-                text={item.fname}
+                text={item.name_th}
                 moveCard={moveCard}
                 setItems={setItems}
               />
@@ -64,12 +67,20 @@ const Container = ({ items, setItems }) => {
   );
 };
 
-const FormPersonal = ({ personalSelect, setItems, basePath }) => {
+const FormPersonal = ({
+  personalSelect,
+  setItems,
+  basePath,
+  personalUpdate,
+  onUpdateDB
+}) => {
   let oldPersonal = { ...personalSelect };
+
   const { control, handleSubmit } = useForm();
 
   const onSubmit = data => {
-    console.log(data);
+    data["imgPath"] = oldPersonal["imgPath"];
+    onUpdateDB(data);
   };
 
   const onUpload = data => {
@@ -146,6 +157,32 @@ const FormPersonal = ({ personalSelect, setItems, basePath }) => {
               </div>
             </div>
             <div className="col-md-7 mb-3">
+              <Controller
+                as={
+                  <FormControl style={{ width: "100%" }}>
+                    <InputLabel htmlFor="position-native-simple">
+                      ตำแน่ง
+                    </InputLabel>
+                    <Select
+                      native
+                      required={true}
+                      inputProps={{
+                        id: "position-native-simple"
+                      }}
+                    >
+                      <option aria-label="None" value="" />
+                      <option value={"หัวหน้าสาขา"}>หัวหน้าสาขา</option>
+                      <option value={"อาจารย์ประจำ"}>อาจารย์ประจำ</option>
+                      <option value={"ธุรการ"}>ธุรการ</option>
+                    </Select>
+                  </FormControl>
+                }
+                name="position"
+                control={control}
+                defaultValue={personalSelect.position}
+                className="mb-3"
+              />
+
               <Controller
                 as={
                   <TextField
@@ -264,33 +301,44 @@ const FormPersonal = ({ personalSelect, setItems, basePath }) => {
                   <div className="col-md-6">
                     <b>ข้อมูลการศึกษา</b>
                   </div>
-                  <div className="col-md-6">
-                    <button
-                      type="button"
-                      className="btn btn-primary btn-sm"
-                      onClick={() => {
-                        oldPersonal.level.push("");
-                        oldPersonal.branch.push("");
-                        oldPersonal.schoolName.push("");
-                        oldPersonal.year.push("");
+                  <div className="col-md-6 text-right">
+                    {(() => {
+                      if (personalUpdate) {
+                        return (
+                          <button
+                            type="button"
+                            className="btn btn-primary btn-sm"
+                            onClick={() => {
+                              oldPersonal.level.push("");
+                              oldPersonal.branch.push("");
+                              oldPersonal.schoolName.push("");
+                              oldPersonal.year.push("");
 
-                        setItems("personalSelect", oldPersonal);
-                      }}
-                    >
-                      เพิ่มข้อมูล
-                    </button>
+                              setItems("personalSelect", oldPersonal);
+                            }}
+                          >
+                            เพิ่มข้อมูล
+                          </button>
+                        );
+                      }
+                      return "";
+                    })()}
                   </div>
                 </div>
               </div>
 
-              <table className="table table-bordered">
+              <table className="table table-borderless table-sm table-hover">
                 <thead>
                   <tr>
                     <th scope="col">ระดับ</th>
                     <th scope="col">สาขา</th>
                     <th scope="col">สถาบัน</th>
                     <th scope="col">ปีที่สำเร็จ</th>
-                    <th scope="col"></th>
+                    {(() => {
+                      if (personalUpdate) {
+                        return <th scope="col"></th>;
+                      }
+                    })()}
                   </tr>
                 </thead>
                 <tbody>
@@ -333,28 +381,27 @@ const FormPersonal = ({ personalSelect, setItems, basePath }) => {
                             className="form-control"
                           />
                         </td>
-                        <td>
-                          <button
-                            type="button"
-                            className="btn btn-danger btn-sm"
-                            onClick={() => {
-                              oldPersonal.year.splice(1, 1);
-                              oldPersonal.schoolName.splice(1, 1);
-                              oldPersonal.branch.splice(1, 1);
-                              oldPersonal.level.splice(1, 1);
-
-                              // delete oldPersonal.year[index];
-                              // delete oldPersonal.schoolName[index];
-                              // delete oldPersonal.branch[index];
-                              // delete oldPersonal.level[index];
-
-
-                              setItems("personalSelect", oldPersonal);
-                            }}
-                          >
-                            ลบข้อมูล
-                          </button>
-                        </td>
+                        {(() => {
+                          if (personalUpdate) {
+                            return (
+                              <td>
+                                <button
+                                  type="button"
+                                  className="btn btn-danger btn-sm"
+                                  onClick={() => {
+                                    oldPersonal.year.splice(1, 1);
+                                    oldPersonal.schoolName.splice(1, 1);
+                                    oldPersonal.branch.splice(1, 1);
+                                    oldPersonal.level.splice(1, 1);
+                                    setItems("personalSelect", oldPersonal);
+                                  }}
+                                >
+                                  ลบข้อมูล
+                                </button>
+                              </td>
+                            );
+                          }
+                        })()}
                       </tr>
                     );
                   })}
@@ -382,6 +429,7 @@ const FormPersonal = ({ personalSelect, setItems, basePath }) => {
 
 const initialPersonal = {
   imgPath: "",
+  position: "",
   prefix_th: "",
   prefix_en: "",
   name_th: "",
@@ -389,10 +437,10 @@ const initialPersonal = {
   room: "",
   telephone: "",
   email: "",
-  level: [""],
-  branch: [""],
-  schoolName: [""],
-  year: [""]
+  level: ["-", "-", "-"],
+  branch: ["-", "-", "-"],
+  schoolName: ["-", "-", "-"],
+  year: ["-", "-", "-"]
 };
 
 export default class Personal extends Component {
@@ -419,6 +467,7 @@ export default class Personal extends Component {
       isDragging: false,
       personalSelect: { ...initialPersonal },
       personalModal: false,
+      personalUpdate: false,
       setItems: (key, data) => {
         this.setState({ [`${key}`]: data });
       }
@@ -450,6 +499,17 @@ export default class Personal extends Component {
     }
   }
 
+  onUpdateDB = async data => {
+    data["index"] =
+      this.state.items.length <= 0
+        ? this.state.items.length
+        : this.state.items.length + 1;
+
+    await this.props.db("/personal").push(data);
+    // alert("บันทึกข้อมูลสำเร็จ");
+    // window.$("#personalModal").modal("hide");
+  };
+
   render() {
     return (
       <>
@@ -466,6 +526,7 @@ export default class Personal extends Component {
               data-toggle="modal"
               data-target="#personalModal"
               onClick={() => {
+                this.state.setItems("personalUpdate", false);
                 this.state.setItems("personalSelect", initialPersonal);
               }}
             >
@@ -493,6 +554,8 @@ export default class Personal extends Component {
                     personalSelect={this.state.personalSelect}
                     setItems={this.state.setItems}
                     basePath={this.props.basePath}
+                    personalUpdate={this.state.personalUpdate}
+                    onUpdateDB={this.onUpdateDB}
                   />
                 );
               return "";
