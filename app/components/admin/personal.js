@@ -11,14 +11,6 @@ import Select from "@material-ui/core/Select";
 import FormControl from "@material-ui/core/FormControl";
 import InputLabel from "@material-ui/core/InputLabel";
 
-const style = {
-  border: "1px dashed gray",
-  padding: "0.5rem 1rem",
-  marginBottom: ".5rem",
-  backgroundColor: "white",
-  cursor: "pointer"
-};
-
 const Container = ({ items, setItems }) => {
   const moveCard = (dragIndex, hoverIndex) => {
     const dragCard = items[dragIndex];
@@ -34,36 +26,47 @@ const Container = ({ items, setItems }) => {
   };
 
   return (
-    <table className="table table-borderless table-hover table-sm">
-      <thead>
-        <tr>
-          <th style={{ textAlign: "center" }} scope="col">
-            ลำดับ
-          </th>
-          <th scope="col">ชื่อ</th>
-          <th scope="col"></th>
-          <th scope="col"></th>
-        </tr>
-      </thead>
-      <tbody>
-        {items.map((item, i) => (
-          <tr key={i}>
-            <td style={{ textAlign: "center" }}>{i + 1}</td>
-            <td style={{ cursor: "pointer" }}>
-              <Card
-                index={i}
-                id={item.key}
-                text={item.name_th}
-                moveCard={moveCard}
-                setItems={setItems}
-              />
-            </td>
-            <td>Otto</td>
-            <td>@mdo</td>
-          </tr>
-        ))}
-      </tbody>
-    </table>
+    <div className="modal-content">
+      <div className="modal-header">
+        <h5 className="modal-title" id="personalModalLabel">
+          เรียงลำดับรายชื่ออาจารย์ประจำ
+        </h5>
+        <button
+          type="button"
+          className="close"
+          data-dismiss="modal"
+          aria-label="Close"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div className="modal-body">
+        {items
+          .filter(v => v.position.indexOf("อาจารย์ประจำ") > -1)
+          .map((item, i) => (
+            <Card
+              key={i}
+              index={i}
+              id={item.key}
+              text={`${item.prefix_th} ${item.name_th}`}
+              moveCard={moveCard}
+              setItems={setItems}
+            />
+          ))}
+      </div>
+      <div className="modal-footer">
+        <button
+          type="button"
+          className="btn btn-secondary"
+          data-dismiss="modal"
+        >
+          ปิด
+        </button>
+        <button type="submit" className="btn btn-primary">
+          บันทึก
+        </button>
+      </div>
+    </div>
   );
 };
 
@@ -75,11 +78,11 @@ const FormPersonal = ({
   onUpdateDB
 }) => {
   let oldPersonal = { ...personalSelect };
-
   const { control, handleSubmit } = useForm();
 
   const onSubmit = data => {
     data["imgPath"] = oldPersonal["imgPath"];
+    data["key"] = personalSelect["key"];
     onUpdateDB(data);
   };
 
@@ -164,6 +167,7 @@ const FormPersonal = ({
                       ตำแน่ง
                     </InputLabel>
                     <Select
+                      defaultValue={personalSelect.position}
                       native
                       required={true}
                       inputProps={{
@@ -246,7 +250,7 @@ const FormPersonal = ({
           </div>
 
           <div className="row">
-            <div className="col-md-4 mb-3">
+            <div className="col-md-3 mb-3">
               <div className="mb-3">
                 <b>ข้อมูลติดต่อ</b>
               </div>
@@ -295,7 +299,7 @@ const FormPersonal = ({
                 className="mb-3"
               />
             </div>
-            <div className="col-md-8 mb-3">
+            <div className="col-md-9 mb-3">
               <div className="mb-3">
                 <div className="row">
                   <div className="col-md-6">
@@ -428,6 +432,7 @@ const FormPersonal = ({
 };
 
 const initialPersonal = {
+  key: "",
   imgPath: "",
   position: "",
   prefix_th: "",
@@ -504,10 +509,20 @@ export default class Personal extends Component {
       this.state.items.length <= 0
         ? this.state.items.length
         : this.state.items.length + 1;
+    let cloneData = { ...data };
+    delete cloneData["key"];
 
-    await this.props.db("/personal").push(data);
-    // alert("บันทึกข้อมูลสำเร็จ");
-    // window.$("#personalModal").modal("hide");
+    if (this.state.personalUpdate) {
+      // Update DB
+      await this.props.db(`/personal/${data["key"]}`).set(cloneData);
+    } else {
+      // Insert DB
+      await this.props.db("/personal").push(cloneData);
+    }
+
+    alert("บันทึกข้อมูลสำเร็จ");
+    window.$("#personalModal").modal("hide");
+    this.loadData();
   };
 
   render() {
@@ -520,23 +535,201 @@ export default class Personal extends Component {
             </h5>
           </div>
           <div className="col-md-6 text-right mb-3">
+            <span className="mr-3">
+              <button
+                type="button"
+                className="btn btn-success btn-sm"
+                onClick={() => {
+                  window.$(`#sortModal`).modal("show");
+                }}
+              >
+                เรียงลำดับรายชื่อ
+              </button>
+            </span>
+
             <button
               type="button"
               className="btn btn-primary btn-sm"
-              data-toggle="modal"
-              data-target="#personalModal"
               onClick={() => {
                 this.state.setItems("personalUpdate", false);
                 this.state.setItems("personalSelect", initialPersonal);
+                window.$(`#personalModal`).modal("show");
               }}
             >
               เพิ่มรายชื่อ
             </button>
           </div>
         </div>
-        <DndProvider backend={Backend}>
+        {/* <DndProvider backend={Backend}>
           <Container {...this.state} />
-        </DndProvider>
+        </DndProvider> */}
+
+        <div>
+          <table className="table table-hover table-sm table-hover table-borderless">
+            <thead>
+              <tr>
+                <th scope="col"></th>
+                <th scope="col">ชื่อ - สกุล</th>
+                <th scope="col">ตำแหน่ง</th>
+                <th scope="col"></th>
+                <th scope="col"></th>
+              </tr>
+            </thead>
+            <tbody>
+              {this.state.items
+                .filter(v => v.position.indexOf("หัวหน้าสาขา") > -1)
+                .map((val, index) => {
+                  return (
+                    <tr key={index}>
+                      <td style={{ verticalAlign: "middle" }}>{index + 1}</td>
+                      <td style={{ verticalAlign: "middle" }}>
+                        {val.prefix_th}&nbsp;{val.name_th}
+                      </td>
+                      <td style={{ verticalAlign: "middle" }}>
+                        {val.position}
+                      </td>
+                      <td style={{ verticalAlign: "middle" }}>
+                        <button
+                          type="button"
+                          className="btn btn-warning btn-sm"
+                          onClick={() => {
+                            this.state.setItems("personalUpdate", true);
+                            this.state.setItems("personalSelect", val);
+                            window.$(`#personalModal`).modal("show");
+                          }}
+                        >
+                          แก้ไข
+                        </button>
+                      </td>
+                      <td style={{ verticalAlign: "middle" }}>
+                        <button
+                          type="button"
+                          className="btn btn-danger btn-sm"
+                          onClick={async () => {
+                            if (confirm("ยืนยันการลบข้อมูล")) {
+                              await this.props
+                                .db(`/personal/${val.key}`)
+                                .remove();
+                              this.loadData();
+                            }
+                          }}
+                        >
+                          ลบ
+                        </button>
+                      </td>
+                    </tr>
+                  );
+                })}
+
+              {/*  */}
+              {this.state.items
+                .filter(v => v.position.indexOf("อาจารย์ประจำ") > -1)
+                .map((val, index) => {
+                  return (
+                    <tr key={index}>
+                      <td style={{ verticalAlign: "middle" }}>
+                        {index +
+                          1 +
+                          this.state.items.filter(
+                            v => v.position.indexOf("หัวหน้าสาขา") > -1
+                          ).length}
+                      </td>
+                      <td style={{ verticalAlign: "middle" }}>
+                        {val.prefix_th}&nbsp;{val.name_th}
+                      </td>
+                      <td style={{ verticalAlign: "middle" }}>
+                        {val.position}
+                      </td>
+                      <td style={{ verticalAlign: "middle" }}>
+                        <button
+                          type="button"
+                          className="btn btn-warning btn-sm"
+                          onClick={() => {
+                            this.state.setItems("personalUpdate", true);
+                            this.state.setItems("personalSelect", val);
+                            window.$(`#personalModal`).modal("show");
+                          }}
+                        >
+                          แก้ไข
+                        </button>
+                      </td>
+                      <td style={{ verticalAlign: "middle" }}>
+                        <button
+                          type="button"
+                          className="btn btn-danger btn-sm"
+                          onClick={async () => {
+                            if (confirm("ยืนยันการลบข้อมูล")) {
+                              await this.props
+                                .db(`/personal/${val.key}`)
+                                .remove();
+                              this.loadData();
+                            }
+                          }}
+                        >
+                          ลบ
+                        </button>
+                      </td>
+                    </tr>
+                  );
+                })}
+
+              {/*  */}
+              {this.state.items
+                .filter(v => v.position.indexOf("ธุรการ") > -1)
+                .map((val, index) => {
+                  return (
+                    <tr key={index}>
+                      <td style={{ verticalAlign: "middle" }}>
+                        {index +
+                          1 +
+                          this.state.items.filter(
+                            v => v.position.indexOf("อาจารย์ประจำ") > -1
+                          ).length +
+                          this.state.items.filter(
+                            v => v.position.indexOf("หัวหน้าสาขา") > -1
+                          ).length}
+                      </td>
+                      <td style={{ verticalAlign: "middle" }}>
+                        {val.prefix_th}&nbsp;{val.name_th}
+                      </td>
+                      <td style={{ verticalAlign: "middle" }}>
+                        {val.position}
+                      </td>
+                      <td style={{ verticalAlign: "middle" }}>
+                        <button
+                          type="button"
+                          className="btn btn-warning btn-sm"
+                          onClick={() => {
+                            this.state.setItems("personalUpdate", true);
+                            this.state.setItems("personalSelect", val);
+                            window.$(`#personalModal`).modal("show");
+                          }}
+                        >
+                          แก้ไข
+                        </button>
+                      </td>
+                      <td style={{ verticalAlign: "middle" }}>
+                        <button
+                          type="button"
+                          className="btn btn-danger btn-sm"
+                          onClick={async () => {
+                            if (confirm("ยืนยันการลบข้อมูล")) {
+                              await this.props
+                                .db(`/personal/${val.key}`)
+                                .remove();
+                              window.location.reload();
+                            }
+                          }}
+                        >
+                          ลบ
+                        </button>
+                      </td>
+                    </tr>
+                  );
+                })}
+            </tbody>
+          </table>
+        </div>
 
         <div
           className="modal fade"
@@ -560,6 +753,21 @@ export default class Personal extends Component {
                 );
               return "";
             })()}
+          </div>
+        </div>
+
+        <div
+          className="modal fade"
+          id="sortModal"
+          tabIndex="-1"
+          role="dialog"
+          aria-labelledby="sortModalLabel"
+          aria-hidden="true"
+        >
+          <div className="modal-dialog" role="document">
+            <DndProvider backend={Backend}>
+              <Container {...this.state} />
+            </DndProvider>
           </div>
         </div>
       </>

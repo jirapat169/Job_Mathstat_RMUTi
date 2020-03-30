@@ -2,11 +2,16 @@ import React, { useImperativeHandle, useRef } from "react";
 import { DragSource, DropTarget } from "react-dnd";
 import ItemTypes from "./ItemTypes";
 
+const style = {
+  border: "1px dashed gray",
+  padding: "0.5rem 1rem",
+  marginBottom: ".5rem",
+  backgroundColor: "white",
+  cursor: "pointer"
+};
+
 const Card = React.forwardRef(
-  (
-    { text, isDragging, connectDragSource, connectDropTarget },
-    ref
-  ) => {
+  ({ text, isDragging, connectDragSource, connectDropTarget, index }, ref) => {
     const elementRef = useRef(null);
     connectDragSource(elementRef);
     connectDropTarget(elementRef);
@@ -15,7 +20,8 @@ const Card = React.forwardRef(
       getNode: () => elementRef.current
     }));
     return (
-      <div ref={elementRef} style={{ opacity }}>
+      <div ref={elementRef} style={{ ...style, opacity }}>
+        <span style={{ width: "30px", display: "inline-block" }}>{index + 1}</span>
         {text}
       </div>
     );
