@@ -88,6 +88,18 @@ const HtmlHead = ({
         rel="stylesheet"
         href={`${basePath()}assets/css/Font_Promp/promp.css`}
       />
+      <link
+        rel="stylesheet"
+        href={`${basePath()}assets/css/Froala/froala_editor.pkgd.min.css`}
+      />
+      <link
+        rel="stylesheet"
+        href={`${basePath()}assets/css/Froala/plugins.pkgd.css`}
+      />
+      <link
+        rel="stylesheet"
+        href={`${basePath()}assets/css/Froala/froala_style.min.css`}
+      />
     </Head>
   );
 };

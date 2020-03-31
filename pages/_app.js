@@ -6,6 +6,7 @@ import withRedux from "next-redux-wrapper";
 import firebase from "firebase/app";
 import LinearProgress from "@material-ui/core/LinearProgress";
 import "firebase/database";
+import "firebase/storage";
 import "../app/style.scss";
 import { Router } from "next/router";
 import AppRedux from "../app/redux/app-redux";
@@ -35,7 +36,9 @@ class MyApp extends App {
     this.state = {
       pageLoad: true,
       pageDelay: 500,
-      db: null
+      db: null,
+      storageUpload: null,
+      storageRemove: null
     };
   }
 
@@ -65,6 +68,51 @@ class MyApp extends App {
       this.setState({
         db: (path = "") => {
           return firebase.database().ref(`/mathstat${path}`);
+        },
+        storageUpload: (file, event) => {
+          var storageRef = firebase.storage().ref();
+          var uploadTask = storageRef
+            .child(`/mathstat/${new Date().getTime()}`)
+            .put(file);
+          uploadTask.on(
+            "state_changed",
+            function(snapshot) {
+              var progress =
+                (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+
+              switch (snapshot.state) {
+                case firebase.storage.TaskState.PAUSED:
+                  event({ progress: progress, status: "Upload is paused" });
+                  break;
+                case firebase.storage.TaskState.RUNNING:
+                  event({ progress: progress, status: "Upload is running" });
+                  break;
+              }
+            },
+            function(error) {
+              event({ upload: false, status: error.code });
+            },
+            function() {
+              uploadTask.snapshot.ref
+                .getDownloadURL()
+                .then(function(downloadURL) {
+                  event({ upload: true, status: downloadURL });
+                });
+            }
+          );
+        },
+        storageRemove: url => {
+          var storageRef = firebase.storage().refFromURL(url);
+          return new Promise(resolve => {
+            storageRef
+              .delete()
+              .then(value => {
+                resolve({ delete: true, status: value });
+              })
+              .catch(reason => {
+                resolve({ delete: false, status: reason });
+              });
+          });
         }
       });
     }
@@ -99,6 +147,8 @@ class MyApp extends App {
           {...pageProps}
           {...this.props}
           db={this.state.db}
+          storageUpload={this.state.storageUpload}
+          storageRemove={this.state.storageRemove}
           delay={delay}
         >
           <Component />
@@ -111,6 +161,12 @@ class MyApp extends App {
         <script src={`${basePath()}assets/js/bootstrap.bundle.min.js`}></script>
         <script src={`${basePath()}assets/js/secure-ls.min.js`}></script>
         <script src={`${basePath()}assets/js/underscore-min.js`}></script>
+        <script
+          src={`${basePath()}assets/js/Froala/froala_editor.pkgd.min.js`}
+        ></script>
+        <script
+          src={`${basePath()}assets/js/Froala/plugins.pkgd.min.js`}
+        ></script>
       </Provider>
     );
   }
