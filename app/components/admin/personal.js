@@ -11,18 +11,33 @@ import Select from "@material-ui/core/Select";
 import FormControl from "@material-ui/core/FormControl";
 import InputLabel from "@material-ui/core/InputLabel";
 
-const Container = ({ items, setItems }) => {
+const Container = ({ bItems, setItems, db, loadData }) => {
   const moveCard = (dragIndex, hoverIndex) => {
-    const dragCard = items[dragIndex];
+    const dragCard = bItems[dragIndex];
     setItems(
-      "items",
-      update(items, {
+      "bItems",
+      update(bItems, {
         $splice: [
           [dragIndex, 1],
           [hoverIndex, 0, dragCard]
         ]
       })
     );
+  };
+
+  const onSave = async () => {
+    let onItem = {};
+    bItems.forEach((element, index) => {
+      bItems[index]["index"] = index;
+      onItem[bItems[index]["key"]] = bItems[index];
+      delete onItem[bItems[index]["key"]]["key"];
+    });
+
+    await db("/personal").set(onItem);
+    loadData();
+
+    window.$("#sortModal").modal("hide");
+    alert("บันทึกข้อมูลสำเร็จ...");
   };
 
   return (
@@ -41,7 +56,7 @@ const Container = ({ items, setItems }) => {
         </button>
       </div>
       <div className="modal-body">
-        {items
+        {bItems
           .filter(v => v.position.indexOf("อาจารย์ประจำ") > -1)
           .map((item, i) => (
             <Card
@@ -50,7 +65,6 @@ const Container = ({ items, setItems }) => {
               id={item.key}
               text={`${item.prefix_th} ${item.name_th}`}
               moveCard={moveCard}
-              setItems={setItems}
             />
           ))}
       </div>
@@ -62,7 +76,13 @@ const Container = ({ items, setItems }) => {
         >
           ปิด
         </button>
-        <button type="submit" className="btn btn-primary">
+        <button
+          type="button"
+          className="btn btn-primary"
+          onClick={() => {
+            onSave();
+          }}
+        >
           บันทึก
         </button>
       </div>
@@ -461,6 +481,7 @@ export default class Personal extends Component {
         await this.props.delay(100);
 
         this.state.setItems("items", items);
+        this.state.setItems("bItems", items);
       }
     });
   };
@@ -469,6 +490,7 @@ export default class Personal extends Component {
     super(props);
     this.state = {
       items: [],
+      bItems: [],
       isDragging: false,
       personalSelect: { ...initialPersonal },
       personalModal: false,
@@ -766,7 +788,11 @@ export default class Personal extends Component {
         >
           <div className="modal-dialog" role="document">
             <DndProvider backend={Backend}>
-              <Container {...this.state} />
+              <Container
+                {...this.state}
+                db={this.props.db}
+                loadData={this.loadData}
+              />
             </DndProvider>
           </div>
         </div>
