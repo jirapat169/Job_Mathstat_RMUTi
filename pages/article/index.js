@@ -40,7 +40,7 @@ export default class article extends Component {
           <div className="row">
             {this.state.newsItems.map((value, index) => {
               return (
-                <div className="col-md-4" key={index}>
+                <div className="col-md-4 mb-3" key={index}>
                   <div
                     className="box-padding newsBox"
                     onClick={() => {
