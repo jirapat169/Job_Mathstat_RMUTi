@@ -123,6 +123,7 @@ const FormNews = ({ newsUpdate, db, newsSelect, setState, basePath }) => {
                 <option value={"ข่าวกิจกรรม"}>ข่าวกิจกรรม</option>
                 <option value={"ข่าวบริการวิชาการ"}>ข่าวบริการวิชาการ</option>
                 <option value={"ข่าวการรับสมัคร"}>ข่าวการรับสมัคร</option>
+                <option value={"บทความทั่วไป"}>บทความทั่วไป</option>
               </Select>
             </FormControl>
           }
@@ -309,6 +310,7 @@ export default class News extends Component {
                   <option value={"ข่าวกิจกรรม"}>ข่าวกิจกรรม</option>
                   <option value={"ข่าวบริการวิชาการ"}>ข่าวบริการวิชาการ</option>
                   <option value={"ข่าวการรับสมัคร"}>ข่าวการรับสมัคร</option>
+                  <option value={"บทความทั่วไป"}>บทความทั่วไป</option>
                 </Select>
               </FormControl>
             </div>

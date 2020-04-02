@@ -78,7 +78,8 @@ export default class Index extends Component {
 
       if (value.val()) {
         Object.keys(value.val()).forEach((element, index) => {
-          items.push({ ...value.val()[element], key: element });
+          if (value.val()[element]["type"] != "บทความทั่วไป")
+            items.push({ ...value.val()[element], key: element });
         });
 
         items.sort((a, b) => (b.timeUpdate >= a.timeUpdate ? 1 : -1));

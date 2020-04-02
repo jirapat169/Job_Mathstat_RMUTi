@@ -69,9 +69,6 @@ export default class activity extends Component {
                       </div>
                       <div className="col-md-6 mb-3">
                         <div className="mb-3">{value.name}</div>
-                        <div className="mb-3">
-                          <a href="#">#{value.type}</a>
-                        </div>
                         <div>
                           <p>
                             {new Date(value.timeUpdate).getDate()}/
