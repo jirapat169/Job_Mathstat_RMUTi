@@ -19,7 +19,7 @@ const HeaderContent = () => {
             />
           </div>
           <div className="content text-dark ml-3">
-            <h3>สาขาวิชาคณิตศาสตร์และสถิติประยุกต์</h3>
+            <h3>สาขาคณิตศาสตร์และสถิติประยุกต์</h3>
             <h6>Department of Applied Mathematics and Statistics</h6>
             <p className="text-muted">
               คณะวิทยาศาสตร์และศิลปศาสตร์ มหาวิทยาลัยเทคโนโลยีราชมงคลอีสาน

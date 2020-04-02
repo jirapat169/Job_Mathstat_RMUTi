@@ -482,6 +482,9 @@ export default class Personal extends Component {
 
         this.state.setItems("items", items);
         this.state.setItems("bItems", items);
+      } else {
+        this.state.setItems("items", items);
+        this.state.setItems("bItems", items);
       }
     });
   };
@@ -739,7 +742,7 @@ export default class Personal extends Component {
                               await this.props
                                 .db(`/personal/${val.key}`)
                                 .remove();
-                              window.location.reload();
+                              this.loadData();
                             }
                           }}
                         >

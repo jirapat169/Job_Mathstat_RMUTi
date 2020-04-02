@@ -69,6 +69,22 @@ export default class Index extends Component {
                         >
                           จัดการคณาจารย์และเจ้าหน้าที่
                         </a>
+
+                        <a
+                          className="nav-link"
+                          id="v-pills-logout-tab"
+                          data-toggle="pill"
+                          href="#v-pills-logout"
+                          role="tab"
+                          aria-controls="v-pills-logout"
+                          aria-selected="false"
+                          onClick={() => {
+                            AppService.localStorage().clear();
+                            window.location.reload();
+                          }}
+                        >
+                          ออกจากระบบ
+                        </a>
                       </div>
                     </div>
 
