@@ -60,14 +60,19 @@ export default class Personal extends Component {
                           window.$("#personalModal").modal("show");
                         }}
                       >
-                        <div className="mb-3">
+                        <div className="mb-3" style={{ height: "170px" }}>
                           <img
                             src={
                               value.imgPath ||
                               `${this.props.basePath}assets/img/person.svg`
                             }
                             alt="personalImg"
-                            width="150px"
+                            style={{
+                              objectFit: "scale-down",
+                              maxHeight: "170px",
+                              height: "100%",
+                              width: "100%"
+                            }}
                           />
                         </div>
 
@@ -81,7 +86,7 @@ export default class Personal extends Component {
                 );
               })}
           </div>
-          <div style={{ marginTop: "50px", marginBottom: "50px" }}></div>
+          <div style={{ marginTop: "30px", marginBottom: "30px" }}></div>
           <div className="row justify-content-center">
             {this.state.personal
               .filter(v => v.position.indexOf("อาจารย์ประจำ") > -1)
@@ -96,14 +101,19 @@ export default class Personal extends Component {
                       }}
                     >
                       <div className="text-center">
-                        <div className="mb-3">
+                        <div className="mb-3" style={{ height: "170px" }}>
                           <img
                             src={
                               value.imgPath ||
                               `${this.props.basePath}assets/img/person.svg`
                             }
                             alt="personalImg"
-                            width="150px"
+                            style={{
+                              objectFit: "scale-down",
+                              maxHeight: "170px",
+                              height: "100%",
+                              width: "100%"
+                            }}
                           />
                         </div>
 
@@ -116,7 +126,7 @@ export default class Personal extends Component {
                 );
               })}
           </div>
-          <div style={{ marginTop: "50px", marginBottom: "50px" }}></div>
+          <div style={{ marginTop: "30px", marginBottom: "30px" }}></div>
           <div className="row justify-content-center">
             {this.state.personal
               .filter(v => v.position.indexOf("ธุรการ") > -1)
@@ -131,14 +141,19 @@ export default class Personal extends Component {
                       }}
                     >
                       <div className="text-center">
-                        <div className="mb-3">
+                        <div className="mb-3" style={{ height: "170px" }}>
                           <img
                             src={
                               value.imgPath ||
                               `${this.props.basePath}assets/img/person.svg`
                             }
                             alt="personalImg"
-                            width="150px"
+                            style={{
+                              objectFit: "scale-down",
+                              maxHeight: "170px",
+                              height: "100%",
+                              width: "100%"
+                            }}
                           />
                         </div>
 
@@ -263,7 +278,7 @@ export default class Personal extends Component {
                                     )
                                       return (
                                         <tr key={index}>
-                                          <td style={{ minWidth: "100px" }}>
+                                          <td style={{ minWidth: "150px" }}>
                                             {
                                               this.state.personalSelect.level[
                                                 index

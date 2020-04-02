@@ -55,7 +55,7 @@ const TabsList = ({ tabChange, value }) => {
 
 const TabsContent = ({ value, children }) => {
   return (
-    <div className="tabView" id={`tabView${value}`}>
+    <div className="tabView box-padding" id={`tabView${value}`}>
       {children}
     </div>
   );
@@ -65,13 +65,33 @@ export default class Index extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      tabIndex: 0
+      tabIndex: 0,
+      newsItems: []
     };
   }
 
-  componentDidMount() {
+  async componentDidMount() {
     this.tabChange(0);
-    // console.log(this.props);
+    await this.props.delay(300);
+    this.props.db("/news").on("value", value => {
+      let items = [];
+
+      if (value.val()) {
+        Object.keys(value.val()).forEach((element, index) => {
+          items.push({ ...value.val()[element], key: element });
+        });
+
+        items.sort((a, b) => (b.timeUpdate >= a.timeUpdate ? 1 : -1));
+      }
+
+      this.setState({ newsItems: items });
+    });
+  }
+
+  componentWillUnmount() {
+    if (this.props.db) {
+      this.props.db("/news").off("value", value => {});
+    }
   }
 
   tabChange = data => {
@@ -96,19 +116,243 @@ export default class Index extends Component {
           </div>
           <TabsList tabChange={this.tabChange} value={this.state.tabIndex} />
           <TabsContent value={0}>
-            <p>ข่าวทั้งหมด</p>
+            <div className="row">
+              {this.state.newsItems.map((value, index) => {
+                return (
+                  <div className="col-md-4" key={index}>
+                    <div
+                      className="box-padding newsBox"
+                      onClick={() => {
+                        window.open(
+                          `${this.props.basePath}news/?news=${value.key}`
+                        );
+                      }}
+                    >
+                      <div className="row">
+                        <div
+                          className="col-md-6 mb-3"
+                          style={{ height: "200px", overflow: "hidden" }}
+                        >
+                          <div className="mb-3">
+                            <img
+                              src={value.imgPath}
+                              alt="newsImg"
+                              style={{
+                                objectFit: "scale-down",
+                                maxHeight: "100px",
+                                height: "100%",
+                                width: "100%"
+                              }}
+                            />
+                          </div>
+                        </div>
+                        <div className="col-md-6 mb-3">
+                          <div className="mb-3">{value.name}</div>
+                          <div className="mb-3">
+                            <a href="#">#{value.type}</a>
+                          </div>
+                          <div>
+                            <p>
+                              {new Date(value.timeUpdate).getDate()}/
+                              {new Date(value.timeUpdate).getMonth() + 1}/
+                              {new Date(value.timeUpdate).getFullYear() + 543}
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
           </TabsContent>
           <TabsContent value={1}>
-            <p>ข่าวประชาสัมพันธ์</p>
+            <div className="row">
+              {this.state.newsItems
+                .filter(v => v.type.indexOf("ข่าวประชาสัมพันธ์") > -1)
+                .map((value, index) => {
+                  return (
+                    <div className="col-md-4" key={index}>
+                      <div
+                        className="box-padding newsBox"
+                        onClick={() => {
+                          window.open(
+                            `${this.props.basePath}news/?news=${value.key}`
+                          );
+                        }}
+                      >
+                        <div className="row">
+                          <div className="col-md-6 mb-3">
+                            <div className="mb-3" style={{ height: "100px" }}>
+                              <img
+                                src={value.imgPath}
+                                alt="newsImg"
+                                style={{
+                                  objectFit: "scale-down",
+                                  maxHeight: "100px",
+                                  height: "100%",
+                                  width: "100%"
+                                }}
+                              />
+                            </div>
+                          </div>
+                          <div className="col-md-6 mb-3">
+                            <div className="mb-3">{value.name}</div>
+                            <div>
+                              <p>
+                                {new Date(value.timeUpdate).getDate()}/
+                                {new Date(value.timeUpdate).getMonth() + 1}/
+                                {new Date(value.timeUpdate).getFullYear() + 543}
+                              </p>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  );
+                })}
+            </div>
           </TabsContent>
           <TabsContent value={2}>
-            <p>ข่าวกิจกรรม</p>
+            <div className="row">
+              {this.state.newsItems
+                .filter(v => v.type.indexOf("ข่าวกิจกรรม") > -1)
+                .map((value, index) => {
+                  return (
+                    <div className="col-md-4" key={index}>
+                      <div
+                        className="box-padding newsBox"
+                        onClick={() => {
+                          window.open(
+                            `${this.props.basePath}news/?news=${value.key}`
+                          );
+                        }}
+                      >
+                        <div className="row">
+                          <div className="col-md-6 mb-3">
+                            <div className="mb-3" style={{ height: "100px" }}>
+                              <img
+                                src={value.imgPath}
+                                alt="newsImg"
+                                style={{
+                                  objectFit: "scale-down",
+                                  maxHeight: "100px",
+                                  height: "100%",
+                                  width: "100%"
+                                }}
+                              />
+                            </div>
+                          </div>
+                          <div className="col-md-6 mb-3">
+                            <div className="mb-3">{value.name}</div>
+                            <div>
+                              <p>
+                                {new Date(value.timeUpdate).getDate()}/
+                                {new Date(value.timeUpdate).getMonth() + 1}/
+                                {new Date(value.timeUpdate).getFullYear() + 543}
+                              </p>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  );
+                })}
+            </div>
           </TabsContent>
           <TabsContent value={3}>
-            <p>ข่าวบริการวิชาการ</p>
+            <div className="row">
+              {this.state.newsItems
+                .filter(v => v.type.indexOf("ข่าวบริการวิชาการ") > -1)
+                .map((value, index) => {
+                  return (
+                    <div className="col-md-4" key={index}>
+                      <div
+                        className="box-padding newsBox"
+                        onClick={() => {
+                          window.open(
+                            `${this.props.basePath}news/?news=${value.key}`
+                          );
+                        }}
+                      >
+                        <div className="row">
+                          <div className="col-md-6 mb-3">
+                            <div className="mb-3" style={{ height: "100px" }}>
+                              <img
+                                src={value.imgPath}
+                                alt="newsImg"
+                                style={{
+                                  objectFit: "scale-down",
+                                  maxHeight: "100px",
+                                  height: "100%",
+                                  width: "100%"
+                                }}
+                              />
+                            </div>
+                          </div>
+                          <div className="col-md-6 mb-3">
+                            <div className="mb-3">{value.name}</div>
+                            <div>
+                              <p>
+                                {new Date(value.timeUpdate).getDate()}/
+                                {new Date(value.timeUpdate).getMonth() + 1}/
+                                {new Date(value.timeUpdate).getFullYear() + 543}
+                              </p>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  );
+                })}
+            </div>
           </TabsContent>
           <TabsContent value={4}>
-            <p>ข่าวการรับสมัคร</p>
+            <div className="row">
+              {this.state.newsItems
+                .filter(v => v.type.indexOf("ข่าวการรับสมัคร") > -1)
+                .map((value, index) => {
+                  return (
+                    <div className="col-md-4" key={index}>
+                      <div
+                        className="box-padding newsBox"
+                        onClick={() => {
+                          window.open(
+                            `${this.props.basePath}news/?news=${value.key}`
+                          );
+                        }}
+                      >
+                        <div className="row">
+                          <div className="col-md-6 mb-3">
+                            <div className="mb-3" style={{ height: "100px" }}>
+                              <img
+                                src={value.imgPath}
+                                alt="newsImg"
+                                style={{
+                                  objectFit: "scale-down",
+                                  maxHeight: "100px",
+                                  height: "100%",
+                                  width: "100%"
+                                }}
+                              />
+                            </div>
+                          </div>
+                          <div className="col-md-6 mb-3">
+                            <div className="mb-3">{value.name}</div>
+                            <div>
+                              <p>
+                                {new Date(value.timeUpdate).getDate()}/
+                                {new Date(value.timeUpdate).getMonth() + 1}/
+                                {new Date(value.timeUpdate).getFullYear() + 543}
+                              </p>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  );
+                })}
+            </div>
           </TabsContent>
         </DefaultLayout>
       </>

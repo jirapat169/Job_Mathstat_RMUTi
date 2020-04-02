@@ -58,9 +58,12 @@ const HeaderContent = () => {
                   >
                     บริการบุคลากร
                   </a>
-                  <a className="dropdown-item" href="#">
-                    ปฎิทินกิจกรรม
-                  </a>
+                  <Link
+                    href="/personal/calender"
+                    as={`${basePath()}personal/calender`}
+                  >
+                    <a className="dropdown-item">ปฎิทินกิจกรรม</a>
+                  </Link>
                   <a
                     className="dropdown-item"
                     href="https://ess.rmuti.ac.th/RMUTI/Registration/WebReportForm/StTimetableInstructorPRT.aspx"
@@ -243,10 +246,18 @@ const BodyContent = ({ children }) => {
                 ข่าวสารและกิจกรรม
               </a>
               <div className="dropdown-menu" aria-labelledby="newsDropdown">
-                <a className="dropdown-item">ข่าวประชาสัมพันธ์</a>
-                <a className="dropdown-item">ข่าวกิจกรรม</a>
-                <a className="dropdown-item">ข่าวบริการวิชาการ</a>
-                <a className="dropdown-item">ข่าวการรับสมัคร</a>
+                <Link href="/news/publish" as={`${basePath()}news/publish`}>
+                  <a className="dropdown-item">ข่าวประชาสัมพันธ์</a>
+                </Link>
+                <Link href="/news/activity" as={`${basePath()}news/activity`}>
+                  <a className="dropdown-item">ข่าวกิจกรรม</a>
+                </Link>
+                <Link href="/news/academic" as={`${basePath()}news/academic`}>
+                  <a className="dropdown-item">ข่าวบริการวิชาการ</a>
+                </Link>
+                <Link href="/news/join" as={`${basePath()}news/join`}>
+                  <a className="dropdown-item">ข่าวการรับสมัคร</a>
+                </Link>
               </div>
             </li>
 
@@ -280,9 +291,9 @@ const BodyContent = ({ children }) => {
             </li>
 
             <li className="nav-item">
-              <a className="nav-link" href="#">
-                ติดต่อเรา
-              </a>
+              <Link href="/contact" as={`${basePath()}contact`}>
+                <a className="nav-link">ติดต่อเรา</a>
+              </Link>
             </li>
           </ul>
         </div>
@@ -316,7 +327,7 @@ const FooterContent = ({ fullYear }) => {
             <div className="col-md-6 mb-3">
               <h5 className="mb-3">ติดต่อเรา</h5>
               <p className="mb-3">
-                สาขาวิชาคณิตศาสตร์และสถิติประยุกต์ คณะวิทยาศาสตร์และศิลปศาสตร์
+                สาขาคณิตศาสตร์และสถิติประยุกต์ คณะวิทยาศาสตร์และศิลปศาสตร์
                 มหาวิทยาลัยเทคโนโลยีราชมงคลอีสาน 744 ถ.สุรนารายณ์ ต.ในเมือง
                 อ.เมือง จ.นครราชสีมา 30000
               </p>
@@ -357,7 +368,7 @@ const FooterContent = ({ fullYear }) => {
       </div>
       <div className="nav-footer">
         <div className="container-lg">
-          Copyright © {fullYear}&nbsp; สาขาวิชาคณิตศาสตร์และสถิติประยุกต์
+          Copyright © {fullYear}&nbsp; สาขาคณิตศาสตร์และสถิติประยุกต์
           คณะวิทยาศาสตร์และศิลปศาสตร์ มหาวิทยาลัยเทคโนโลยีราชมงคลอีสาน
         </div>
       </div>

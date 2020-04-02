@@ -11,7 +11,14 @@ module.exports = withCSS(
         "/": { page: "/" },
         "/admin": { page: "/admin" },
         "/history": { page: "/history" },
-        "/personal": { page: "/personal" }
+        "/personal": { page: "/personal" },
+        "/personal/calender": { page: "/personal/calender" },
+        "/news": { page: "/news" },
+        "/news/academic": { page: "/news/academic" },
+        "/news/activity": { page: "/news/activity" },
+        "/news/join": { page: "/news/join" },
+        "/news/publish": { page: "/news/publish" },
+        "/contact": { page: "/contact" }
       };
 
       return paths;

@@ -5,23 +5,50 @@ import TextField from "@material-ui/core/TextField";
 import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
 import InputLabel from "@material-ui/core/InputLabel";
+import Button from "@material-ui/core/Button";
 let editor;
 
-const FormNews = ({ newsUpdate, db, newsSelect }) => {
+const FormNews = ({ newsUpdate, db, newsSelect, setState, basePath }) => {
   const { control, register, handleSubmit } = useForm();
+  let bc = { ...newsSelect };
   const onSubmit = async data => {
+    if (newsSelect["imgPath"].length <= 0) {
+      alert("โปรดเลือกรูปหน้าปก");
+      return;
+    }
+
+    data["imgPath"] = bc["imgPath"];
+    data["timeUpdate"] = new Date().getTime();
     if (newsUpdate) {
       // Update
-      await db(`/news/${newsSelect["key"]}`).set(data);
+      await db(`/news/${bc["key"]}`).set(data);
       window.$("#newsModal").modal("hide");
     } else {
       // Insert
-      data["timeUpdate"] = new Date().getTime();
       await db("/news").push(data);
       window.$("#newsModal").modal("hide");
     }
 
     alert("บันทึกข้อมูลสำเร็จ");
+  };
+
+  const onUpload = data => {
+    if (data) {
+      new Compressor(data, {
+        quality: 0.8,
+        success(result) {
+          const reader = new FileReader();
+          reader.readAsDataURL(result);
+          reader.onloadend = base64 => {
+            bc["imgPath"] = base64.target.result;
+            setState({ newsSelect: bc });
+          };
+        },
+        error(err) {
+          console.log(err.message);
+        }
+      });
+    }
   };
 
   return (
@@ -40,6 +67,37 @@ const FormNews = ({ newsUpdate, db, newsSelect }) => {
         </button>
       </div>
       <div className="modal-body">
+        <div className="text-center">
+          <div className="mb-3">
+            <img
+              src={newsSelect.imgPath || `${basePath}assets/img/person.svg`}
+              alt="personalImg"
+              width="170px"
+            />
+          </div>
+
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={() => {
+              window.$("#imgPathInput").click();
+            }}
+          >
+            เลือกรูปหน้าปก
+          </Button>
+          <input
+            name="imgPathInput"
+            type="file"
+            style={{ display: "none" }}
+            id="imgPathInput"
+            onChange={e => {
+              onUpload(e.target.files[0]);
+              e.target.value = "";
+              e.preventDefault();
+            }}
+          />
+        </div>
+
         <Controller
           as={<TextField label="ชื่อข่าว" required={true} />}
           name="name"
@@ -107,7 +165,10 @@ export default class News extends Component {
       newsUpdate: false,
       newsItems: [],
       newsSelect: null,
-      newsType: ""
+      newsType: "",
+      setState: data => {
+        this.setState(data);
+      }
     };
   }
 
@@ -213,7 +274,7 @@ export default class News extends Component {
               className="btn btn-primary btn-sm"
               onClick={() => {
                 this.setState({
-                  newsSelect: { type: "", newsData: "", name: "" },
+                  newsSelect: { type: "", newsData: "", name: "", imgPath: "" },
                   newsUpdate: false
                 });
                 window.$("#newsModal").modal("show");
@@ -270,16 +331,32 @@ export default class News extends Component {
                 .map((value, index) => {
                   return (
                     <tr key={index}>
-                      <td style={{ verticalAlign: "middle" }}>{index + 1}</td>
+                      <td
+                        style={{
+                          verticalAlign: "middle",
+                          minWidth: "40px",
+                          textAlign: "center"
+                        }}
+                      >
+                        {index + 1}
+                      </td>
                       <td style={{ verticalAlign: "middle" }}>{value.name}</td>
-                      <td style={{ verticalAlign: "middle" }}>{value.type}</td>
-                      <td style={{ verticalAlign: "middle" }}>
+                      <td
+                        style={{ verticalAlign: "middle", minWidth: "140px" }}
+                      >
+                        {value.type}
+                      </td>
+                      <td
+                        style={{ verticalAlign: "middle", minWidth: "270px" }}
+                      >
                         <span className="mr-3 ml-3">
                           <button
                             type="button"
                             className="btn btn-success btn-sm"
                             onClick={() => {
-                              console.log(value);
+                              window.open(
+                                `${this.props.basePath}news/?news=${value.key}`
+                              );
                             }}
                           >
                             ดูตัวอย่าง

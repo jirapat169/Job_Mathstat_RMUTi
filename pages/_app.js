@@ -13,13 +13,14 @@ import AppRedux from "../app/redux/app-redux";
 
 const basePath = require("./../base_path");
 const configFirebase = {
-  apiKey: "AIzaSyCONB0piLBtDWrd0X6EQM3X4j5GfhUD5Vc",
-  authDomain: "myapp-c233c.firebaseapp.com",
-  databaseURL: "https://myapp-c233c.firebaseio.com",
-  projectId: "myapp-c233c",
-  storageBucket: "myapp-c233c.appspot.com",
-  messagingSenderId: "718102188961",
-  appId: "1:718102188961:web:9f9d7084e872ad3da6b1e0"
+  apiKey: "AIzaSyDDoO6kKBYSz2q75tgJDEX95YO_bsXkIO8",
+  authDomain: "mathstat-project.firebaseapp.com",
+  databaseURL: "https://mathstat-project.firebaseio.com",
+  projectId: "mathstat-project",
+  storageBucket: "mathstat-project.appspot.com",
+  messagingSenderId: "942399260442",
+  appId: "1:942399260442:web:a0eb0b092d38cd43308ea3",
+  measurementId: "G-1T20ZVT51D"
 };
 
 const delay = ms => {
