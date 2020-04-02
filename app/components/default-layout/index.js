@@ -130,12 +130,12 @@ const HeaderContent = () => {
                   >
                     แบบฟอร์มต่าง ๆ
                   </a>
-                  <a className="dropdown-item" href="#">
-                    สหกิจศึกษาและฝึกงาน
-                  </a>
-                  <a className="dropdown-item" href="#">
-                    สัมมนาและโครงงานพิเศษ
-                  </a>
+                  <Link href="/apprentice" as={`${basePath()}apprentice`}>
+                    <a className="dropdown-item">สหกิจศึกษาและฝึกงาน</a>
+                  </Link>
+                  <Link href="/seminar" as={`${basePath()}seminar`}>
+                    <a className="dropdown-item">สัมมนาและโครงงานพิเศษ</a>
+                  </Link>
                 </div>
               </div>
             </div>
@@ -160,12 +160,12 @@ const HeaderContent = () => {
                   className="dropdown-menu dropdown-menu-right"
                   aria-labelledby="joinMenuButton"
                 >
-                  <a className="dropdown-item" href="#">
-                    ข่าวการรับสมัคร
-                  </a>
-                  <a className="dropdown-item" href="#">
-                    หลักสูตร
-                  </a>
+                  <Link href="/news/join" as={`${basePath()}news/join`}>
+                    <a className="dropdown-item">ข่าวการรับสมัคร</a>
+                  </Link>
+                  <Link href="/bachelor" as={`${basePath()}bachelor`}>
+                    <a className="dropdown-item">หลักสูตร</a>
+                  </Link>
                   <a
                     className="dropdown-item"
                     href="https://ess.rmuti.ac.th/eAdmission/eApplicant/InfoEAdmission.aspx"
@@ -274,20 +274,22 @@ const BodyContent = ({ children }) => {
                 งานวิชาการ
               </a>
               <div className="dropdown-menu" aria-labelledby="academicDropdown">
-                <a className="dropdown-item">หลักสูตรปริญญาตรี</a>
+                <Link href="/bachelor" as={`${basePath()}bachelor`}>
+                  <a className="dropdown-item">หลักสูตรปริญญาตรี</a>
+                </Link>
               </div>
             </li>
 
             <li className="nav-item">
-              <a className="nav-link" href="#">
-                งานวิจัย
-              </a>
+              <Link href="/research" as={`${basePath()}research`}>
+                <a className="nav-link">งานวิจัย</a>
+              </Link>
             </li>
 
             <li className="nav-item">
-              <a className="nav-link" href="#">
-                บทความทั่วไป
-              </a>
+              <Link href="/article" as={`${basePath()}article`}>
+                <a className="nav-link">บทความทั่วไป</a>
+              </Link>
             </li>
 
             <li className="nav-item">

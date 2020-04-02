@@ -76,4 +76,39 @@
     <priority>0.5</priority>
     <changefreq>daily</changefreq>
   </url>
+
+  <url>
+    <loc>http://mathstat.rmuti.ac.th/bachelor</loc>
+    <lastmod>2020-03-27</lastmod>
+    <priority>0.5</priority>
+    <changefreq>daily</changefreq>
+  </url>
+
+  <url>
+    <loc>http://mathstat.rmuti.ac.th/article</loc>
+    <lastmod>2020-03-27</lastmod>
+    <priority>0.5</priority>
+    <changefreq>daily</changefreq>
+  </url>
+
+  <url>
+    <loc>http://mathstat.rmuti.ac.th/research</loc>
+    <lastmod>2020-03-27</lastmod>
+    <priority>0.5</priority>
+    <changefreq>daily</changefreq>
+  </url>
+
+  <url>
+    <loc>http://mathstat.rmuti.ac.th/apprentice</loc>
+    <lastmod>2020-03-27</lastmod>
+    <priority>0.5</priority>
+    <changefreq>daily</changefreq>
+  </url>
+
+  <url>
+    <loc>http://mathstat.rmuti.ac.th/seminar</loc>
+    <lastmod>2020-03-27</lastmod>
+    <priority>0.5</priority>
+    <changefreq>daily</changefreq>
+  </url>
 </urlset>
