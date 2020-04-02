@@ -27,4 +27,53 @@
     <priority>0.5</priority>
     <changefreq>daily</changefreq>
   </url>
+
+  <url>
+    <loc>http://mathstat.rmuti.ac.th/personal/calender</loc>
+    <lastmod>2020-03-27</lastmod>
+    <priority>0.5</priority>
+    <changefreq>daily</changefreq>
+  </url>
+
+  <url>
+    <loc>http://mathstat.rmuti.ac.th/news</loc>
+    <lastmod>2020-03-27</lastmod>
+    <priority>0.5</priority>
+    <changefreq>daily</changefreq>
+  </url>
+
+  <url>
+    <loc>http://mathstat.rmuti.ac.th/news/academic</loc>
+    <lastmod>2020-03-27</lastmod>
+    <priority>0.5</priority>
+    <changefreq>daily</changefreq>
+  </url>
+
+  <url>
+    <loc>http://mathstat.rmuti.ac.th/news/activity</loc>
+    <lastmod>2020-03-27</lastmod>
+    <priority>0.5</priority>
+    <changefreq>daily</changefreq>
+  </url>
+
+  <url>
+    <loc>http://mathstat.rmuti.ac.th/news/join</loc>
+    <lastmod>2020-03-27</lastmod>
+    <priority>0.5</priority>
+    <changefreq>daily</changefreq>
+  </url>
+
+  <url>
+    <loc>http://mathstat.rmuti.ac.th/news/publish</loc>
+    <lastmod>2020-03-27</lastmod>
+    <priority>0.5</priority>
+    <changefreq>daily</changefreq>
+  </url>
+
+  <url>
+    <loc>http://mathstat.rmuti.ac.th/contact</loc>
+    <lastmod>2020-03-27</lastmod>
+    <priority>0.5</priority>
+    <changefreq>daily</changefreq>
+  </url>
 </urlset>
