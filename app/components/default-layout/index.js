@@ -85,7 +85,7 @@ const HeaderContent = () => {
                   style={{ cursor: "pointer" }}
                 >
                   <img
-                    src={`${basePath()}assets/img/student.png`}
+                    src={`${basePath()}assets/img/student.svg`}
                     alt="student"
                     width="50px"
                   />
@@ -178,6 +178,24 @@ const HeaderContent = () => {
                   </a>
                 </div>
               </div>
+            </div>
+            <div className="col">
+              <Link href="/alumni" as={`${basePath()}alumni`}>
+                <div className="dropdown">
+                  <div
+                    className="text-center"
+                    id="alumniButton"
+                    style={{ cursor: "pointer" }}
+                  >
+                    <img
+                      src={`${basePath()}assets/img/alumni.png`}
+                      alt="join"
+                      width="50px"
+                    />
+                    <p>สำหรับศิษย์เก่า</p>
+                  </div>
+                </div>
+              </Link>
             </div>
           </div>
         </div>
@@ -382,20 +400,18 @@ class DefaultLayout extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      fullYear: new Date().getFullYear()
+      fullYear: new Date().getFullYear(),
     };
   }
 
   componentDidMount() {
-    document.getElementById(
-      "bodyContent"
-    ).style.paddingBottom = `${document.getElementById("footerContent")
-      .offsetHeight + 30}px`;
+    document.getElementById("bodyContent").style.paddingBottom = `${
+      document.getElementById("footerContent").offsetHeight + 30
+    }px`;
     window.addEventListener("resize", () => {
-      document.getElementById(
-        "bodyContent"
-      ).style.paddingBottom = `${document.getElementById("footerContent")
-        .offsetHeight + 30}px`;
+      document.getElementById("bodyContent").style.paddingBottom = `${
+        document.getElementById("footerContent").offsetHeight + 30
+      }px`;
     });
   }
 

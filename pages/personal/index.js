@@ -5,11 +5,11 @@ import "./personal.scss";
 
 export default class Personal extends Component {
   loadData = () => {
-    this.props.db("/personal").on("value", async value => {
+    this.props.db("/personal").on("value", async (value) => {
       let items = [];
 
       if (value.val()) {
-        Object.keys(value.val()).forEach(key => {
+        Object.keys(value.val()).forEach((key) => {
           items.push({ key: key, ...value.val()[key] });
         });
         items.sort((a, b) => (a.index >= b.index ? 1 : -1));
@@ -26,7 +26,7 @@ export default class Personal extends Component {
     super(props);
     this.state = {
       personal: [],
-      personalSelect: null
+      personalSelect: null,
     };
   }
 
@@ -48,7 +48,7 @@ export default class Personal extends Component {
           </div>
           <div className="row justify-content-center">
             {this.state.personal
-              .filter(v => v.position.indexOf("หัวหน้าสาขา") > -1)
+              .filter((v) => v.position.indexOf("หัวหน้าสาขา") > -1)
               .map((value, index) => {
                 return (
                   <div className="col-md-4 mb-3" key={index}>
@@ -71,7 +71,7 @@ export default class Personal extends Component {
                               objectFit: "scale-down",
                               maxHeight: "170px",
                               height: "100%",
-                              width: "100%"
+                              width: "100%",
                             }}
                           />
                         </div>
@@ -79,7 +79,7 @@ export default class Personal extends Component {
                         <div>
                           {value.prefix_th}&nbsp;{value.name_th}
                         </div>
-                        <div>หัวหน้าสาขาวิชาคณิตศาสตร์และสถิติประยุกต์</div>
+                        <div>หัวหน้าสาขาคณิตศาสตร์และสถิติประยุกต์</div>
                       </div>
                     </div>
                   </div>
@@ -89,7 +89,7 @@ export default class Personal extends Component {
           <div style={{ marginTop: "30px", marginBottom: "30px" }}></div>
           <div className="row justify-content-center">
             {this.state.personal
-              .filter(v => v.position.indexOf("อาจารย์ประจำ") > -1)
+              .filter((v) => v.position.indexOf("อาจารย์ประจำ") > -1)
               .map((value, index) => {
                 return (
                   <div className="col-md-4 mb-3" key={index}>
@@ -112,7 +112,7 @@ export default class Personal extends Component {
                               objectFit: "scale-down",
                               maxHeight: "170px",
                               height: "100%",
-                              width: "100%"
+                              width: "100%",
                             }}
                           />
                         </div>
@@ -129,7 +129,7 @@ export default class Personal extends Component {
           <div style={{ marginTop: "30px", marginBottom: "30px" }}></div>
           <div className="row justify-content-center">
             {this.state.personal
-              .filter(v => v.position.indexOf("ธุรการ") > -1)
+              .filter((v) => v.position.indexOf("ธุรการ") > -1)
               .map((value, index) => {
                 return (
                   <div className="col-md-4 mb-3" key={index}>
@@ -152,7 +152,7 @@ export default class Personal extends Component {
                               objectFit: "scale-down",
                               maxHeight: "170px",
                               height: "100%",
-                              width: "100%"
+                              width: "100%",
                             }}
                           />
                         </div>
@@ -231,7 +231,7 @@ export default class Personal extends Component {
                               <span
                                 style={{
                                   display: "inline-block",
-                                  width: "80px"
+                                  width: "80px",
                                 }}
                               >
                                 ห้องพัก&nbsp;:
@@ -242,7 +242,7 @@ export default class Personal extends Component {
                               <span
                                 style={{
                                   display: "inline-block",
-                                  width: "80px"
+                                  width: "80px",
                                 }}
                               >
                                 โทรศัพท์&nbsp;:
@@ -253,7 +253,7 @@ export default class Personal extends Component {
                               <span
                                 style={{
                                   display: "inline-block",
-                                  width: "80px"
+                                  width: "80px",
                                 }}
                               >
                                 อีเมล&nbsp;:

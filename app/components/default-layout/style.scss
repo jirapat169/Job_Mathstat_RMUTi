@@ -19,6 +19,9 @@
 
 .header-menu {
   padding-top: 20px;
+  .dropdown {
+    font-size: 14px;
+  }
   .dropdown:hover {
     background-color: #f0f0f0;
   }

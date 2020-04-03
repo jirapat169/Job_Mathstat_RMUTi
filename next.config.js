@@ -6,7 +6,7 @@ module.exports = withCSS(
   withSass({
     exportTrailingSlash: true,
     assetPrefix: basePath(),
-    exportPathMap: async function() {
+    exportPathMap: async function () {
       const paths = {
         "/": { page: "/" },
         "/admin": { page: "/admin" },
@@ -23,10 +23,11 @@ module.exports = withCSS(
         "/article": { page: "/article" },
         "/research": { page: "/research" },
         "/apprentice": { page: "/apprentice" },
-        "/seminar": { page: "/seminar" }
+        "/seminar": { page: "/seminar" },
+        "/alumni": { page: "/alumni" },
       };
 
       return paths;
-    }
+    },
   })
 );

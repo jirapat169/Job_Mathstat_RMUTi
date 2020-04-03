@@ -14,7 +14,7 @@ export default class bachelor extends Component {
         <DefaultLayout>
           <div className="text-center mb-3">
             <h5 className="mb-2">
-              <b>หลักสูตรวิทยาศาสตร์บัณฑิต (สถิติประยุกต์)</b>
+              <b>หลักสูตรวิทยาศาสตรบัณฑิต (สถิติประยุกต์)</b>
             </h5>
             <h5 className="mb-3">
               <b>Bachelor of Science Program in Applied Statistics</b>
@@ -27,7 +27,7 @@ export default class bachelor extends Component {
               />
             </div>
             <p className="mb-2">
-              ระดับปริญญาตรี วิทยาศาสตร์บัณฑิต สาขาคณิตศาสตร์และสถิติประยุกต์
+              ระดับปริญญาตรี วิทยาศาสตรบัณฑิต สาขาคณิตศาสตร์และสถิติประยุกต์
               คณะวิทยาศาสตร์และศิลปศาสตร์
             </p>
             <p>หลักสูตรใหม่ 2559</p>
@@ -43,7 +43,7 @@ export default class bachelor extends Component {
                 href={`${this.props.basePath}assets/luksut.pdf`}
                 target="_blank"
               >
-                หลักสูตรวิทยาศาสตร์บัณฑิต สาขาวิชาสถิติประยุกต์
+                หลักสูตรวิทยาศาสตรบัณฑิต สาขาวิชาสถิติประยุกต์
               </a>
             </div>
             <div>
