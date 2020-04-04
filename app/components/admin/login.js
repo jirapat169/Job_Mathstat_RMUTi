@@ -56,7 +56,7 @@ const From = ({ basePath, onLoginSubmit, showPass, setState }) => {
             <div className="">
               <FormControlLabel
                 control={<Checkbox checked={showPass} name="showPassword" />}
-                onChange={event => {
+                onChange={(event) => {
                   setState(event.target.checked);
                 }}
                 label="แสดงรหัสผ่าน"
@@ -79,16 +79,16 @@ class Login extends Component {
     super(props);
     this.state = {
       showPass: false,
-      setState: data => {
+      setState: (data) => {
         return this.setState({ showPass: data });
-      }
+      },
     };
   }
 
   componentDidMount() {}
 
-  onLoginSubmit = data => {
-    console.log(data);
+  onLoginSubmit = (data) => {
+    // console.log(data);
 
     if (data.username == "admin" && data.password == "mathstat@2020") {
       AppService.localStorage().set("userlogin", data);

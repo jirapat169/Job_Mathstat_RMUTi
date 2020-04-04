@@ -19,8 +19,8 @@ const Container = ({ bItems, setItems, db, loadData }) => {
       update(bItems, {
         $splice: [
           [dragIndex, 1],
-          [hoverIndex, 0, dragCard]
-        ]
+          [hoverIndex, 0, dragCard],
+        ],
       })
     );
   };
@@ -57,13 +57,13 @@ const Container = ({ bItems, setItems, db, loadData }) => {
       </div>
       <div className="modal-body">
         {bItems
-          .filter(v => v.position.indexOf("อาจารย์ประจำ") > -1)
+          .filter((v) => v.position.indexOf("อาจารย์ประจำ") > -1)
           .map((item, i) => (
             <Card
               key={i}
               index={i}
               id={item.key}
-              text={`${item.prefix_th} ${item.name_th}`}
+              text={<span>{`${item.prefix_th} ${item.name_th}`}</span>}
               moveCard={moveCard}
             />
           ))}
@@ -95,25 +95,25 @@ const FormPersonal = ({
   setItems,
   basePath,
   personalUpdate,
-  onUpdateDB
+  onUpdateDB,
 }) => {
   let oldPersonal = { ...personalSelect };
   const { control, handleSubmit } = useForm();
 
-  const onSubmit = data => {
+  const onSubmit = (data) => {
     data["imgPath"] = oldPersonal["imgPath"];
     data["key"] = personalSelect["key"];
     onUpdateDB(data);
   };
 
-  const onUpload = data => {
+  const onUpload = (data) => {
     if (data) {
       new Compressor(data, {
         quality: 1,
         success(result) {
           const reader = new FileReader();
           reader.readAsDataURL(result);
-          reader.onloadend = base64 => {
+          reader.onloadend = (base64) => {
             oldPersonal = { ...personalSelect };
             oldPersonal["imgPath"] = base64.target.result;
             setItems("personalSelect", oldPersonal);
@@ -121,7 +121,7 @@ const FormPersonal = ({
         },
         error(err) {
           console.log(err.message);
-        }
+        },
       });
     }
   };
@@ -171,7 +171,7 @@ const FormPersonal = ({
                   type="file"
                   style={{ display: "none" }}
                   id="imgPathInput"
-                  onChange={e => {
+                  onChange={(e) => {
                     onUpload(e.target.files[0]);
                     e.target.value = "";
                     e.preventDefault();
@@ -191,7 +191,7 @@ const FormPersonal = ({
                       native
                       required={true}
                       inputProps={{
-                        id: "position-native-simple"
+                        id: "position-native-simple",
                       }}
                     >
                       <option aria-label="None" value="" />
@@ -465,16 +465,16 @@ const initialPersonal = {
   level: ["-", "-", "-"],
   branch: ["-", "-", "-"],
   schoolName: ["-", "-", "-"],
-  year: ["-", "-", "-"]
+  year: ["-", "-", "-"],
 };
 
 export default class Personal extends Component {
   loadData = () => {
-    this.props.db("/personal").once("value", async value => {
+    this.props.db("/personal").once("value", async (value) => {
       let items = [];
 
       if (value.val()) {
-        Object.keys(value.val()).forEach(key => {
+        Object.keys(value.val()).forEach((key) => {
           items.push({ key: key, ...value.val()[key] });
         });
         items.sort((a, b) => (a.index >= b.index ? 1 : -1));
@@ -500,18 +500,18 @@ export default class Personal extends Component {
       personalUpdate: false,
       setItems: (key, data) => {
         this.setState({ [`${key}`]: data });
-      }
+      },
     };
   }
 
   componentDidMount() {
     this.loadData();
 
-    window.$("#personalModal").on("hidden.bs.modal", e => {
+    window.$("#personalModal").on("hidden.bs.modal", (e) => {
       this.state.setItems("personalModal", false);
     });
 
-    window.$("#personalModal").on("show.bs.modal", e => {
+    window.$("#personalModal").on("show.bs.modal", (e) => {
       this.state.setItems("personalModal", true);
     });
   }
@@ -529,7 +529,7 @@ export default class Personal extends Component {
     }
   }
 
-  onUpdateDB = async data => {
+  onUpdateDB = async (data) => {
     data["index"] =
       this.state.items.length <= 0
         ? this.state.items.length
@@ -602,7 +602,7 @@ export default class Personal extends Component {
             </thead>
             <tbody>
               {this.state.items
-                .filter(v => v.position.indexOf("หัวหน้าสาขา") > -1)
+                .filter((v) => v.position.indexOf("หัวหน้าสาขา") > -1)
                 .map((val, index) => {
                   return (
                     <tr key={index}>
@@ -648,7 +648,7 @@ export default class Personal extends Component {
 
               {/*  */}
               {this.state.items
-                .filter(v => v.position.indexOf("อาจารย์ประจำ") > -1)
+                .filter((v) => v.position.indexOf("อาจารย์ประจำ") > -1)
                 .map((val, index) => {
                   return (
                     <tr key={index}>
@@ -656,7 +656,7 @@ export default class Personal extends Component {
                         {index +
                           1 +
                           this.state.items.filter(
-                            v => v.position.indexOf("หัวหน้าสาขา") > -1
+                            (v) => v.position.indexOf("หัวหน้าสาขา") > -1
                           ).length}
                       </td>
                       <td style={{ verticalAlign: "middle" }}>
@@ -700,7 +700,7 @@ export default class Personal extends Component {
 
               {/*  */}
               {this.state.items
-                .filter(v => v.position.indexOf("ธุรการ") > -1)
+                .filter((v) => v.position.indexOf("ธุรการ") > -1)
                 .map((val, index) => {
                   return (
                     <tr key={index}>
@@ -708,10 +708,10 @@ export default class Personal extends Component {
                         {index +
                           1 +
                           this.state.items.filter(
-                            v => v.position.indexOf("อาจารย์ประจำ") > -1
+                            (v) => v.position.indexOf("อาจารย์ประจำ") > -1
                           ).length +
                           this.state.items.filter(
-                            v => v.position.indexOf("หัวหน้าสาขา") > -1
+                            (v) => v.position.indexOf("หัวหน้าสาขา") > -1
                           ).length}
                       </td>
                       <td style={{ verticalAlign: "middle" }}>

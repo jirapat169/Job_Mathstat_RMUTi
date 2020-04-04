@@ -5,13 +5,15 @@ import AppService from "../../app/services/app-service";
 import Login from "../../app/components/admin/login";
 import News from "../../app/components/admin/news";
 import Personal from "../../app/components/admin/personal";
+import Carousel from "../../app/components/admin/Carousel";
+import Alumni from "../../app/components/admin/Alumni";
 
 export default class Index extends Component {
   constructor(props) {
     super(props);
     this.state = {
       onLogin: false,
-      menuSelect: 0
+      menuSelect: 0,
     };
   }
 
@@ -55,6 +57,7 @@ export default class Index extends Component {
                         >
                           จัดการข่าวสาร
                         </a>
+
                         <a
                           className="nav-link"
                           id="v-pills-personal-tab"
@@ -68,6 +71,36 @@ export default class Index extends Component {
                           }}
                         >
                           จัดการคณาจารย์และเจ้าหน้าที่
+                        </a>
+
+                        <a
+                          className="nav-link"
+                          id="v-pills-carousel-tab"
+                          data-toggle="pill"
+                          href="#v-pills-carousel"
+                          role="tab"
+                          aria-controls="v-pills-carousel"
+                          aria-selected="true"
+                          onClick={() => {
+                            this.setState({ menuSelect: 2 });
+                          }}
+                        >
+                          จัดการสไลด์ภาพ
+                        </a>
+
+                        <a
+                          className="nav-link"
+                          id="v-pills-alumni-tab"
+                          data-toggle="pill"
+                          href="#v-pills-alumni"
+                          role="tab"
+                          aria-controls="v-pills-alumni"
+                          aria-selected="true"
+                          onClick={() => {
+                            this.setState({ menuSelect: 3 });
+                          }}
+                        >
+                          สำหรับศิษย์เก่า
                         </a>
 
                         <a
@@ -104,6 +137,7 @@ export default class Index extends Component {
                             }
                           })()}
                         </div>
+
                         <div
                           className="tab-pane fade"
                           id="v-pills-personal"
@@ -113,6 +147,36 @@ export default class Index extends Component {
                           {(() => {
                             if (this.state.menuSelect == 1) {
                               return <Personal {...this.props} />;
+                            } else {
+                              return "";
+                            }
+                          })()}
+                        </div>
+
+                        <div
+                          className="tab-pane fade"
+                          id="v-pills-carousel"
+                          role="tabpanel"
+                          aria-labelledby="v-pills-carousel-tab"
+                        >
+                          {(() => {
+                            if (this.state.menuSelect == 2) {
+                              return <Carousel {...this.props} />;
+                            } else {
+                              return "";
+                            }
+                          })()}
+                        </div>
+
+                        <div
+                          className="tab-pane fade"
+                          id="v-pills-alumni"
+                          role="tabpanel"
+                          aria-labelledby="v-pills-alumni-tab"
+                        >
+                          {(() => {
+                            if (this.state.menuSelect == 3) {
+                              return <Alumni {...this.props} />;
                             } else {
                               return "";
                             }

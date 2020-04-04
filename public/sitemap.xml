@@ -2,112 +2,119 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>http://mathstat.rmuti.ac.th/</loc>
-    <lastmod>2020-03-27</lastmod>
+    <lastmod>2020-04-04</lastmod>
     <priority>0.5</priority>
     <changefreq>daily</changefreq>
   </url>
 
   <url>
     <loc>http://mathstat.rmuti.ac.th/admin</loc>
-    <lastmod>2020-03-27</lastmod>
+    <lastmod>2020-04-04</lastmod>
     <priority>0.5</priority>
     <changefreq>daily</changefreq>
   </url>
 
   <url>
     <loc>http://mathstat.rmuti.ac.th/history</loc>
-    <lastmod>2020-03-27</lastmod>
+    <lastmod>2020-04-04</lastmod>
     <priority>0.5</priority>
     <changefreq>daily</changefreq>
   </url>
 
   <url>
     <loc>http://mathstat.rmuti.ac.th/personal</loc>
-    <lastmod>2020-03-27</lastmod>
+    <lastmod>2020-04-04</lastmod>
     <priority>0.5</priority>
     <changefreq>daily</changefreq>
   </url>
 
   <url>
     <loc>http://mathstat.rmuti.ac.th/personal/calender</loc>
-    <lastmod>2020-03-27</lastmod>
+    <lastmod>2020-04-04</lastmod>
     <priority>0.5</priority>
     <changefreq>daily</changefreq>
   </url>
 
   <url>
     <loc>http://mathstat.rmuti.ac.th/news</loc>
-    <lastmod>2020-03-27</lastmod>
+    <lastmod>2020-04-04</lastmod>
     <priority>0.5</priority>
     <changefreq>daily</changefreq>
   </url>
 
   <url>
     <loc>http://mathstat.rmuti.ac.th/news/academic</loc>
-    <lastmod>2020-03-27</lastmod>
+    <lastmod>2020-04-04</lastmod>
     <priority>0.5</priority>
     <changefreq>daily</changefreq>
   </url>
 
   <url>
     <loc>http://mathstat.rmuti.ac.th/news/activity</loc>
-    <lastmod>2020-03-27</lastmod>
+    <lastmod>2020-04-04</lastmod>
     <priority>0.5</priority>
     <changefreq>daily</changefreq>
   </url>
 
   <url>
     <loc>http://mathstat.rmuti.ac.th/news/join</loc>
-    <lastmod>2020-03-27</lastmod>
+    <lastmod>2020-04-04</lastmod>
     <priority>0.5</priority>
     <changefreq>daily</changefreq>
   </url>
 
   <url>
     <loc>http://mathstat.rmuti.ac.th/news/publish</loc>
-    <lastmod>2020-03-27</lastmod>
+    <lastmod>2020-04-04</lastmod>
     <priority>0.5</priority>
     <changefreq>daily</changefreq>
   </url>
 
   <url>
     <loc>http://mathstat.rmuti.ac.th/contact</loc>
-    <lastmod>2020-03-27</lastmod>
+    <lastmod>2020-04-04</lastmod>
     <priority>0.5</priority>
     <changefreq>daily</changefreq>
   </url>
 
   <url>
     <loc>http://mathstat.rmuti.ac.th/bachelor</loc>
-    <lastmod>2020-03-27</lastmod>
+    <lastmod>2020-04-04</lastmod>
     <priority>0.5</priority>
     <changefreq>daily</changefreq>
   </url>
 
   <url>
     <loc>http://mathstat.rmuti.ac.th/article</loc>
-    <lastmod>2020-03-27</lastmod>
+    <lastmod>2020-04-04</lastmod>
     <priority>0.5</priority>
     <changefreq>daily</changefreq>
   </url>
 
   <url>
     <loc>http://mathstat.rmuti.ac.th/research</loc>
-    <lastmod>2020-03-27</lastmod>
+    <lastmod>2020-04-04</lastmod>
     <priority>0.5</priority>
     <changefreq>daily</changefreq>
   </url>
 
   <url>
     <loc>http://mathstat.rmuti.ac.th/apprentice</loc>
-    <lastmod>2020-03-27</lastmod>
+    <lastmod>2020-04-04</lastmod>
     <priority>0.5</priority>
     <changefreq>daily</changefreq>
   </url>
 
   <url>
     <loc>http://mathstat.rmuti.ac.th/seminar</loc>
-    <lastmod>2020-03-27</lastmod>
+    <lastmod>2020-04-04</lastmod>
+    <priority>0.5</priority>
+    <changefreq>daily</changefreq>
+  </url>
+
+  <url>
+    <loc>http://mathstat.rmuti.ac.th/alumni</loc>
+    <lastmod>2020-04-04</lastmod>
     <priority>0.5</priority>
     <changefreq>daily</changefreq>
   </url>

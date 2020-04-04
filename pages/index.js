@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 import { HtmlHead } from "../app/components/html-head";
 import DefaultLayout from "../app/components/default-layout";
-
+import "react-responsive-carousel/lib/styles/carousel.min.css";
+import { Carousel } from "react-responsive-carousel";
 import "./index.scss";
 
 const basePath = require("./../base_path");
@@ -67,18 +68,28 @@ export default class Index extends Component {
     this.state = {
       tabIndex: 0,
       newsItems: [],
+      carouselInterval: 5000,
+      carouselData: [
+        // { img: `${basePath()}assets/img/photo1.jpg` },
+        // { img: `${basePath()}assets/img/photo1.jpg` },
+        // { img: `${basePath()}assets/img/photo1.jpg` },
+        // { img: `${basePath()}assets/img/photo1.jpg` },
+      ],
     };
   }
 
   async componentDidMount() {
     this.tabChange(0);
     await this.props.delay(300);
-    this.props.db("/news").on("value", (value) => {
+    this.props.db("/news").once("value", (value) => {
       let items = [];
 
       if (value.val()) {
         Object.keys(value.val()).forEach((element, index) => {
-          if (value.val()[element]["type"] != "บทความทั่วไป")
+          if (
+            value.val()[element]["type"] != "บทความทั่วไป" &&
+            value.val()[element]["type"] != "สำหรับศิษเก่า"
+          )
             items.push({ ...value.val()[element], key: element });
         });
 
@@ -86,6 +97,20 @@ export default class Index extends Component {
       }
 
       this.setState({ newsItems: items });
+    });
+
+    this.props.db("/carousel").once("value", (value) => {
+      let items = [];
+      if (value.val()) {
+        Object.keys(value.val()).forEach((el, i) => {
+          items.push({ key: el, ...value.val()[el] });
+        });
+        items.sort((a, b) => (a.index >= b.index ? 1 : -1));
+      }
+
+      console.log(items);
+
+      this.setState({ carouselData: items });
     });
   }
 
@@ -109,11 +134,67 @@ export default class Index extends Component {
         <HtmlHead />
         <DefaultLayout>
           <div className="mb-3">
-            <img
-              src={`${basePath()}assets/img/photo1.jpg`}
-              width="100%"
-              alt="photo1"
-            />
+            {/* <Carousel
+              showThumbs={false}
+              autoPlay
+              interval={this.state.carouselInterval}
+              infiniteLoop
+              swipeable={false}
+            >
+              {this.state.carouselData.map((value, index) => {
+                return (
+                  <div key={index}>
+                    <div style={{ height: "300px" }}>
+                      <img
+                        src={value.img}
+                        alt={`photo${index}`}
+                        style={{
+                          objectFit: "scale-down",
+                          maxHeight: "300px",
+                          height: "100%",
+                          width: "100%",
+                        }}
+                      />
+                    </div>
+                  </div>
+                );
+              })}
+            </Carousel> */}
+
+            {(() => {
+              if (this.state.carouselData.length > 0) {
+                return (
+                  <>
+                    <Carousel
+                      showThumbs={false}
+                      autoPlay
+                      interval={this.state.carouselInterval}
+                      infiniteLoop
+                      swipeable={false}
+                    >
+                      {this.state.carouselData.map((value, index) => {
+                        return (
+                          <div key={index}>
+                            <div style={{ height: "300px" }}>
+                              <img
+                                src={value.img}
+                                alt={`photo${index}`}
+                                style={{
+                                  objectFit: "scale-down",
+                                  maxHeight: "300px",
+                                  height: "100%",
+                                  width: "100%",
+                                }}
+                              />
+                            </div>
+                          </div>
+                        );
+                      })}
+                    </Carousel>
+                  </>
+                );
+              }
+            })()}
           </div>
           <TabsList tabChange={this.tabChange} value={this.state.tabIndex} />
           <TabsContent value={0}>
