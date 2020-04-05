@@ -171,6 +171,7 @@ export default class Index extends Component {
                       interval={this.state.carouselInterval}
                       infiniteLoop
                       swipeable={false}
+                      dynamicHeight={true}
                     >
                       {this.state.carouselData.map((value, index) => {
                         return (
