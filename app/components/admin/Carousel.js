@@ -231,6 +231,7 @@ export default class Carousel extends Component {
                         onClick={async () => {
                           if (confirm("ยืนยันการลบรูปนี้")) {
                             await this.props.db(`/carousel/${el.key}`).remove();
+                            this.loadData();
                           }
                         }}
                       >

@@ -11,7 +11,7 @@ let editor;
 const FormNews = ({ newsUpdate, db, newsSelect, setState, basePath }) => {
   const { control, register, handleSubmit } = useForm();
   let bc = { ...newsSelect };
-  const onSubmit = async data => {
+  const onSubmit = async (data) => {
     if (newsSelect["imgPath"].length <= 0) {
       alert("โปรดเลือกรูปหน้าปก");
       return;
@@ -32,21 +32,21 @@ const FormNews = ({ newsUpdate, db, newsSelect, setState, basePath }) => {
     alert("บันทึกข้อมูลสำเร็จ");
   };
 
-  const onUpload = data => {
+  const onUpload = (data) => {
     if (data) {
       new Compressor(data, {
         quality: 0.8,
         success(result) {
           const reader = new FileReader();
           reader.readAsDataURL(result);
-          reader.onloadend = base64 => {
+          reader.onloadend = (base64) => {
             bc["imgPath"] = base64.target.result;
             setState({ newsSelect: bc });
           };
         },
         error(err) {
           console.log(err.message);
-        }
+        },
       });
     }
   };
@@ -90,7 +90,7 @@ const FormNews = ({ newsUpdate, db, newsSelect, setState, basePath }) => {
             type="file"
             style={{ display: "none" }}
             id="imgPathInput"
-            onChange={e => {
+            onChange={(e) => {
               onUpload(e.target.files[0]);
               e.target.value = "";
               e.preventDefault();
@@ -167,20 +167,21 @@ export default class News extends Component {
       newsItems: [],
       newsSelect: null,
       newsType: "",
-      setState: data => {
+      setState: (data) => {
         this.setState(data);
-      }
+      },
     };
   }
 
   async componentDidMount() {
     const self = this;
-    this.props.db("/news").on("value", value => {
+    this.props.db("/news").on("value", (value) => {
       let items = [];
 
       if (value.val()) {
         Object.keys(value.val()).forEach((element, index) => {
-          items.push({ ...value.val()[element], key: element });
+          if (value.val()[element]["type"] != "สำหรับศิษเก่า")
+            items.push({ ...value.val()[element], key: element });
         });
         items.sort((a, b) => (b.timeUpdate >= a.timeUpdate ? 1 : -1));
       }
@@ -188,12 +189,12 @@ export default class News extends Component {
       this.setState({ newsItems: items });
     });
 
-    window.$("#newsModal").on("hidden.bs.modal", e => {
+    window.$("#newsModal").on("hidden.bs.modal", (e) => {
       this.setState({ newsModal: false });
       editor.destroy();
     });
 
-    window.$("#newsModal").on("show.bs.modal", async e => {
+    window.$("#newsModal").on("show.bs.modal", async (e) => {
       this.setState({ newsModal: true });
 
       await this.props.delay(100);
@@ -201,12 +202,12 @@ export default class News extends Component {
         placeholderText: "เนื้อหาข่าว",
         charCounterCount: false,
         events: {
-          "image.beforeUpload": function(images) {
+          "image.beforeUpload": function (images) {
             let that = this;
             new Compressor(images[0], {
               quality: 0.8,
               success(result) {
-                self.props.storageUpload(result, event => {
+                self.props.storageUpload(result, (event) => {
                   console.log(event);
                   if (event.upload == true) {
                     that.image.insert(
@@ -221,24 +222,24 @@ export default class News extends Component {
               error(err) {
                 alert("ไม่รองรับไฟล์นี้");
                 console.log(err.message);
-              }
+              },
             });
 
             that.popups.hideAll();
             return false;
           },
-          "image.beforeRemove": async function(images) {
+          "image.beforeRemove": async function (images) {
             var del = await self.props.storageRemove(images[0].src);
             console.log(del);
           },
-          "video.beforeUpload": function(video) {
+          "video.beforeUpload": function (video) {
             alert("ไม่รองรับการอัพโหลดวิดีโอ");
             return false;
           },
-          "file.beforeUpload": function(files) {
+          "file.beforeUpload": function (files) {
             let that = this;
             let fileData = files[0];
-            self.props.storageUpload(fileData, event => {
+            self.props.storageUpload(fileData, (event) => {
               console.log(event);
               if (event.upload == true) {
                 that.file.insert(event.status, fileData.name);
@@ -247,17 +248,17 @@ export default class News extends Component {
             that.popups.hideAll();
             return false;
           },
-          "file.unlink": async function(link) {
+          "file.unlink": async function (link) {
             var del = await self.props.storageRemove(link.href);
             console.log(del);
-          }
-        }
+          },
+        },
       });
     });
   }
 
   componentWillUnmount() {
-    this.props.db("/news").off("value", value => {});
+    this.props.db("/news").off("value", (value) => {});
   }
 
   render() {
@@ -276,7 +277,7 @@ export default class News extends Component {
               onClick={() => {
                 this.setState({
                   newsSelect: { type: "", newsData: "", name: "", imgPath: "" },
-                  newsUpdate: false
+                  newsUpdate: false,
                 });
                 window.$("#newsModal").modal("show");
               }}
@@ -298,10 +299,10 @@ export default class News extends Component {
                   value={
                     this.state.newsType == "" ? "ทั้งหมด" : this.state.newsType
                   }
-                  onChange={e => {
+                  onChange={(e) => {
                     this.setState({
                       newsType:
-                        e.target.value == "ทั้งหมด" ? "" : e.target.value
+                        e.target.value == "ทั้งหมด" ? "" : e.target.value,
                     });
                   }}
                 >
@@ -329,7 +330,7 @@ export default class News extends Component {
             </thead>
             <tbody>
               {this.state.newsItems
-                .filter(v => v.type.indexOf(this.state.newsType) > -1)
+                .filter((v) => v.type.indexOf(this.state.newsType) > -1)
                 .map((value, index) => {
                   return (
                     <tr key={index}>
@@ -337,7 +338,7 @@ export default class News extends Component {
                         style={{
                           verticalAlign: "middle",
                           minWidth: "40px",
-                          textAlign: "center"
+                          textAlign: "center",
                         }}
                       >
                         {index + 1}
@@ -372,7 +373,7 @@ export default class News extends Component {
                             onClick={() => {
                               this.setState({
                                 newsSelect: value,
-                                newsUpdate: true
+                                newsUpdate: true,
                               });
                               window.$("#newsModal").modal("show");
                             }}
